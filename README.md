@@ -1,5 +1,12 @@
 # Sistema de gestión Mikrotik PHP
 
+Esta un poco modificada a la version original, el cambio mas importante es que puede ser usado a partir de la version 6.43, sin embargo, si tiene una version anterior, modifique el archivo apimikrotik.php, comentando la linea 106 y descomente la linea 108.
+
+Está hecho principalmente para configuraciones ppp, otras opciones aun en desarrollo.
+
+# Base de Datos
+---------------------------------------------------------------------------------------------------------------------------------
+
 Esta es la versión inicial del sistema de control de Mikrotik RouterBoard desde PHP.
 
 El directorio includes debe colocarse en la raiz (C:\WAMP  en Windows con WAMP Server o /var/ en linux).
