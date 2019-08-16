@@ -102,9 +102,9 @@ class routeros_api
                         if ($MATCHES[0][0] == 'ret' && strlen($MATCHES[0][1]) == 32) {
                             $this->write('/login', false);
                             $this->write('=name=' . $login, false);
-                            /* PARA VERSIONES ANTERIORES A 6.45.1 */
+                            /* PARA VERSIONES ANTERIORES A 6.43 */
                               //$this->write('=response=00' . md5(chr(0) . $password . pack('H*', $MATCHES[0][1])));
-                            /* VERSION 6.45.2 EN ADELANTE */
+                            /* VERSION 6.43 EN ADELANTE */
                             $this->write('=password='.$password);
                             $RESPONSE = $this->read(false);
                             if ($RESPONSE[0] == '!done') {
