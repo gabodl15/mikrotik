@@ -70,16 +70,16 @@ $API->debug = false;
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
                 <div class="row"><!-- Inicia Fila Row -->
-                	<div class="col-md-5">
-                		<form role="form" id="Get_Info" action="../action/get_clients_queue.php" method="POST">
-                			<div class="form-horizontal">
-                			<div class="form-group"><!-- Inicia Grupo Control -->
-                				<label class="col-md-4 control-label">Escoja el Usuario</label>
-                				<div class="col-md-8"><!--Inicia Columna md-8-->
-                				<select name="Usuario" id="Usuario" class="control-select select-definido">
+                	 <div class="col-md-5">
+                		   <form role="form" id="Get_Info" action="../action/get_clients_queue.php" method="POST">
+                			 <div class="form-horizontal">
+                			      <div class="form-group"><!-- Inicia Grupo Control -->
+                				          <label class="col-md-4 control-label">Escoja el Usuario</label>
+                				          <div class="col-md-8"><!--Inicia Columna md-8-->
+                				                <select name="Usuario" id="Usuario" class="control-select select-definido">
 		                                        <!-- Traemos los Usuarios de los Queues y los imprimimos en cada option -->
 		                                        <?php
-		                                                    $API->write("/queue/simple/getall",true);
+		                                                    $API->write("/ppp/secret/getall",true);
 		                                                    $READ = $API->read(false);
 		                                                    $ARRAY = $API->parse_response($READ);
 		                                                    if(count($ARRAY)>0){   // si hay mas de 1 queue.
@@ -95,13 +95,13 @@ $API->debug = false;
 		                                                        }
 		                                                    ?>
 		                                        <!-- -->
-                                        		</select>
-                                        		</div><!-- Termina  Columna md-8-->
-                                        	</div><!-- Termina Grupo Control -->
-                                        	</div>
-                                        </form>
-                            </div>
-                        </div><!-- Termina Fila Row -->
+                                        </select>
+                                  </div><!-- Termina  Columna md-8-->
+                            </div><!-- Termina Grupo Control -->
+                      </div>
+                      </form>
+                  </div>
+                </div><!-- Termina Fila Row -->
 
                         <div class="row" id="Info_Form"> <!-- Inicia Preloader de Formulario -->
                         </div> <!-- Termina Preloader de Formulario -->

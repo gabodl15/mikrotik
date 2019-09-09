@@ -112,7 +112,7 @@ $API->debug = false;
                                   	<div class="form-group">
                                         <label class="col-md-4 control-label">Fecha de cobro</label>
                                         <div class="col-md-8">
-                                            <input type="date" data-date-format="[[d-m-Y]]" id="date" name="date" required>
+                                            <input type="date" id="date" name="date" required>
                                         </div>
                                     </div>
                                <!-- <div class="form-group">
@@ -120,7 +120,7 @@ $API->debug = false;
                                         <div class="col-md-8">
                                             <input type="text" name="no_id" id="no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
                                         </div>
-                                    </div> -->                                    
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -140,15 +140,9 @@ $API->debug = false;
                                         </div>
                                     </div>
                                   	<div class="form-group">
-                                        <label class="col-md-4 control-label">IP Local</label>
+                                        <label class="col-md-4 control-label">IP Alias</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="laddress" id="laddress" value=" " placeholder="192.192.32.* Opcional">
-                                        </div>
-                                    </div>
-                                  	<div class="form-group">
-                                        <label class="col-md-4 control-label">IP Remota</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" name="raddress" id="raddress" value=" " placeholder="192.192.32.* Opcional">
+                                            <input type="text" class="form-control" name="ipalias" id="ipalias" placeholder="10.10.10.*" required>
                                         </div>
                                     </div>
                                   	<div class="form-group">

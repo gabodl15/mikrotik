@@ -74,8 +74,8 @@ $API->debug = false;
                     <!-- START WIDGETS -->
                     <div class="row">
                        <div class="col-md-8">
-                       <!-- <h2>Bienvenido <?=$nombre?></h2> -->
-                       <!-- <h3>esta logueado en mkt <?=$nombre_mkt?></h3> -->
+                       <!-- <h2>Bienvenido </h2> -->
+                       <!-- <h3>esta logueado en mkt </h3> -->
                            <div class="panel panel-default">
                                <div class="panel-heading">
                                    <div class="panel-title-box">
@@ -284,7 +284,7 @@ $API->debug = false;
                                   $API->write("/ppp/secret/getall",true);
                                   $READ = $API->read(false);
                                   $ARRAY = $API->parse_response($READ);
-                                  $result = getSecret($ARRAY);
+                                  $result = getSecret($ARRAY);                                  
                                   extract($result);
                               ?>
                                 <ul class="list-group">

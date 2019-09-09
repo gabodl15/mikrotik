@@ -25,8 +25,7 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
   	$address = $_POST['address'];
   	$dayp = $_POST['day'];
   	$datep = $_POST['date'];
-  	$iplocal = $_POST['laddress'];
-  	$ipremote = $_POST['raddress'];
+  	$ipalias = $_POST['ipalias'];
     $comentarios = $_POST['comentarios'];
     $fecha_activacion = date('d-m-Y');
         if(isset($user) || isset($password) || isset($plan)){
@@ -43,17 +42,17 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
             //$API->write("=customer=".$customer,false);
             $API->write("=name=".$user,false);
             //$API->write("=first-name=".$name,false);
-            //$API->write("=phone=".$phone,false);            
+            //$API->write("=phone=".$phone,false);
             $API->write("=password=".$password,false);
             $API->write("=service=pppoe",false);
-            $API->write("=profile=".$plan,false);
-              if($iplocal){  
+            $API->write("=profile=".$plan,false);/*
+              if($iplocal){
                   $API->write("=local-address=".$iplocal,false);
               }
               if($ipremote){
               	  $API->write("=remote-address=".$ipremote,false);
-              }
-            $API->write("=comment=".$dayp."/ "."[CLIENTE: $name]"."[RIF_CI: $identification]"."[DIRECCION: $address]"."[CORREO: $email]"."[TELF: $phone]"."[FECHA DE ACTIVACION: $fecha_activacion]"."[DIA DE PAGO: $datep]"."[COMENTARIO: $comentarios]",true);
+              }*/
+            $API->write("=comment=".$dayp."/ "."[CLIENTE: $name]"."[RIF_CI: $identification]"."[DIRECCION: $address]"."[CORREO: $email]"."[TELF: $phone]"."[FECHA DE ACTIVACION: $fecha_activacion]"."[DIA DE PAGO: $datep]"."[COMENTARIO: $comentarios]"."[IP ALIAS: $ipalias]",true);
             $READ = $API->read(false);
             // Final Inserción
             $creado = "si";
