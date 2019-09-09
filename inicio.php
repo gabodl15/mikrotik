@@ -268,10 +268,12 @@ $API->debug = false;
                         </div>
                         <div class="col-md-4">
                             <!-- START WIDGET CLOCK -->
+                          	<!-- QUITAR RELOJ
                             <div class="widget widget-success widget-padding-sm">
                                 <div class="widget-big-int plugin-clock">00:00</div>
                                 <div class="widget-subtitle plugin-date">Enviando datos...</div>
                             </div>
+							-->
 
 
                             <div class="panel panel-default">
@@ -281,21 +283,22 @@ $API->debug = false;
 
                                   $API->write("/ppp/secret/getall",true);
                                   $READ = $API->read(false);
-                                  $total_clientes_ppp = $API->parse_response($READ);
-                                  $result = getSecret($total_clientes_ppp);
+                                  $ARRAY = $API->parse_response($READ);
+                                  $result = getSecret($ARRAY);
+                                  extract($result);
                               ?>
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Clientes Activos
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? $result[1] : $result; ?></span>
+                                      <b>Clientes Activos</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_enable?></span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Clientes Cortados
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? (count($total_clientes_ppp) - $result[1]) : $result; ?></span>
+                                      <b>Clientes Cortados</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_suspended?></span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Total Megas Vendidos
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? $result[0] : $result; ?></span>
+                                      <b>Total Megas Vendidos</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_megabytes?></span>
                                     </li>
                                 </ul>
                             </div>

@@ -79,9 +79,11 @@ $API->debug = false;
                               $API->write("/ppp/secret/getall",true);
                               $READ = $API->read(false);
                               $ARRAY = $API->parse_response($READ);
-                              $result = getSecret($ARRAY);
+                              //$result = getSecret($ARRAY);
 
-                              print $result;
+                              //print $result;
+                               
+                              var_dump($ARRAY);
                           ?>
                         </div>
                     </div>

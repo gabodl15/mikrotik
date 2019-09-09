@@ -120,12 +120,12 @@ $API->debug = false;
                                             $READ = $API->read(false);
                                             $ARRAY = $API->parse_response($READ);
 
-                                            if(count($ARRAY)>0){   // si hay mas de 1 queue.
+                                            if(count($ARRAY)>0){   // si hay mas de 1 secret.
                                                 for($x=0;$x<count($ARRAY);$x++){
                                                     if($ARRAY[$x]['disabled'] == "false"){  
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
-                                                        $datos_pppoe.= '<td>'.$name.'</td>';
+                                                        $datos_pppoe.= '<td><a href="#">'.$name.'</a></td>';
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
                                                         $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
                                                         //$datos_pppoe.= '<td>'.$ARRAY[$x]['uptime'].'</td>';
@@ -133,7 +133,7 @@ $API->debug = false;
                                                         echo $datos_pppoe;
                                                     }
                                                 }
-                                                }else{ // si no hay ningun binding
+                                                }else{ // si no hay ningun secret
                                                     echo "No hay ningun IP-Bindings. //<br/>";
                                                 }
                                                 //var_dump($ARRAY);

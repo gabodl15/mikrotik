@@ -1,7 +1,7 @@
 <?php
 session_start();
 if($_SESSION['Authenticated']!="1"){
-header('Location: index');
+header('Location: ../index.php');
 }
 require("../includes/variables.php");
 require('../functions/funciones.php');
@@ -76,16 +76,82 @@ $API->debug = false;
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Nombre</label>
                                         <div class="col-md-8">
-                                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre Completo de Cliente">
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre Completo de Cliente" required>
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">Teléfono</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="phone" name="phone" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" placeholder="Teléfono" required>
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">RIF, CI.</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="identification" name="identification" class="form-control" placeholder="Nro. Identificación" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-4 control-label">Correo.</label>
+                                        <div class="col-md-8">
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="e-mail" required>
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">Direcci&oacute;n</label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="address" name="address" class="form-control" placeholder="Dirección" required>
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">Dia de Pago</label>
+                                        <div class="col-md-8">
+											<input type="text" id="day" name="day" class="form-control" placeholder="Dia de la mensualidad del cliente" required>
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">Fecha de cobro</label>
+                                        <div class="col-md-8">
+                                            <input type="date" data-date-format="[[d-m-Y]]" id="date" name="date" required>
+                                        </div>
+                                    </div>
+                               <!-- <div class="form-group">
                                         <label class="col-md-4 control-label">Identificaci&oacute;n</label>
                                         <div class="col-md-8">
                                             <input type="text" name="no_id" id="no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
                                         </div>
+                                    </div> -->                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-horizontal">
+                                <div class="block">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Usuario PPPoE</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="user" id="user" class="form-control minusculas">
+                                        </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-4 control-label">Password</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control minusculas" name="password" id="password">
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">IP Local</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" name="laddress" id="laddress" value=" " placeholder="192.192.32.* Opcional">
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
+                                        <label class="col-md-4 control-label">IP Remota</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" name="raddress" id="raddress" value=" " placeholder="192.192.32.* Opcional">
+                                        </div>
+                                    </div>
+                                  	<div class="form-group">
                                         <label class="col-md-4 control-label">Plan</label>
                                         <div class="col-md-8">
                                             <select name="plan" id="plan" class="control-select select">
@@ -103,30 +169,12 @@ $API->debug = false;
                                                         //$price = $ARRAY[$x]['price'];
                                                         $datos_planes = '<option value="'.$plan.'">'.$plan.'</option>';
                                                         echo $datos_planes;
-                                                    }
+                                                    }//FIN DEL IF
                                                     }else{ // si no hay ningun binding
                                                         echo "No hay Ningun Plan.";
                                                     }
                                                 ?>
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-horizontal">
-                                <div class="block">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">Usuario PPPoE</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="user" id="user" class="form-control minusculas" readonly="yes">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">Password</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control minusculas" name="password" id="password" readonly="yes">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -203,12 +251,12 @@ $API->debug = false;
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 $('#no_id').blur(function(){
-                    var pass = $('#no_id').val().slice(-4);
+                    //var pass = $('#no_id').val().slice(-4);
                     var user_name = $('#name').val();
                     var user = user_name.replace(/\s+/g, '');
                     var user_id = $('#no_id').val();
-                    $('#password').val("wfc" + pass);
-                    $('#user').val(user_id+"-"+user);
+                    //$('#password').val($('#no_id').val());
+                    //$('#user').val(user);
                 });
                 $("#Crear_Cliente_Userman").submit(function(){
                     $.ajax({
