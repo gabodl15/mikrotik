@@ -73,19 +73,27 @@ $API->debug = false;
 
                     <?php if ($API->connect(IP_MIKROTIK, USER, PASS)){ ;?>
                     <div class="row">
-                        <div class="col-md-8">
-                          <?php
-                              $mega; //Esta variable la usare para tomar el total de los megas de todos los clientes
-                              $API->write("/ppp/secret/getall",true);
-                              $READ = $API->read(false);
-                              $ARRAY = $API->parse_response($READ);
-                              //$result = getSecret($ARRAY);
+                            <?php
+                            $ID_User = "*3";
+                            $API->write("/ppp/secret/getall",false);
+                            $API->write('?.id='.$ID_User,true);
+                            $READ = $API->read(false);
+                            $ARRAY = $API->parse_response($READ);
+                            if(count($ARRAY)>0){ //Buscamos el valor ingresado en el POST
+                                for($x=0;$x<count($ARRAY);$x++){
+                                    echo sanear_string($ARRAY[$x]['name']);
+                                    echo sanear_string($ARRAY[$x]['target']);
+                                    echo $ARRAY[$x]['priority'];
+                                    echo $ARRAY[$x]['limit-at'];
+                                    echo $ARRAY[$x]['limit-at'];
+                                    echo array("status" => "successful", "mensaje" => "Exitoso",
+                                        "nombre" => "$name", "IP" => "$target", "Canal" => "$priority", "BW" => "$limit_at");
+                                }
+                            }else{ // si no hay ningun binding
+                                $arrayResponse[] = array("status" => "error", "mensaje" => "No existen registros con este ID");
+                            }
+                            ?>
 
-                              //print $result;
-                               
-                              var_dump($ARRAY);
-                          ?>
-                        </div>
                     </div>
                     <?php
                         }
