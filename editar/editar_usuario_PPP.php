@@ -290,7 +290,7 @@ $API->debug = false;
                         		data: "Usuario="+dato_usuario, //
                         		dataType: "JSON",
                         		success: function(data){
-	                        	$("#Get_Form").fadeIn();
+	                        		$("#Get_Form").fadeIn();
 	                       		$("#Info_Form").hide();
 
 
