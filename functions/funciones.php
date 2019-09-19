@@ -120,7 +120,7 @@ function filter_suspended($variable2){
 
   	for($j=0; $j<count($variable2);$j++){
 
-      	if($variable2[$j]['profile'] == 'CORTADOS'){
+      	if($variable2[$j]['profile'] == 'CORTADOS' && $variable2[$j]['disabled'] == "false"){
           	$count_client_suspended++;
         }//FIN DEL IF
 

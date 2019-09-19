@@ -108,9 +108,10 @@ $API->debug = false;
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                           <tr>
-                                            <th>Nombre Cliente</th>
-                                            <th>Profile</th>
-                                            <th>Pago</th>
+                                            <th>name</th>
+                                            <th>passwor</th>
+                                            <th>profile</th>
+                                            <th>comment</th>
                                             <!-- <th>Tiempo Conexi&oacute;n</th> -->
                                           </tr>
                                         </thead>
@@ -122,12 +123,14 @@ $API->debug = false;
 
                                             if(count($ARRAY)>0){   // si hay mas de 1 secret.
                                                 for($x=0;$x<count($ARRAY);$x++){
-                                                    if($ARRAY[$x]['disabled'] == "false"){  
+                                                    if($ARRAY[$x]['disabled'] == "false"){
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
-                                                        $datos_pppoe.= '<td><a href="#">'.$name.'</a></td>';
+                                                        $datos_pppoe.= '<td>'.$name.'</td>';
+                                                        $datos_pppoe.= '<td>'.$ARRAY[$x]['password'].'</td>';
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
-                                                        $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
+                                                        //$datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
+                                                        $datos_pppoe.= '<td>'.$ARRAY[$x]['comment'].'</td>';
                                                         //$datos_pppoe.= '<td>'.$ARRAY[$x]['uptime'].'</td>';
                                                         $datos_pppoe.= '</tr>';
                                                         echo $datos_pppoe;
