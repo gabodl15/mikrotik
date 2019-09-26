@@ -106,7 +106,7 @@ $API->debug = false;
                                   	<div class="form-group">
                                         <label class="col-md-4 control-label">Dia de Pago</label>
                                         <div class="col-md-8">
-											<input type="text" id="day" name="day" class="form-control" placeholder="Dia de la mensualidad del cliente" required>
+											                      <input type="text" id="day" name="day" class="form-control" placeholder="Dia de la mensualidad del cliente" required>
                                         </div>
                                     </div>
                                   	<div class="form-group">

@@ -108,10 +108,9 @@ $API->debug = false;
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                           <tr>
-                                            <th>name</th>
-                                            <th>passwor</th>
-                                            <th>profile</th>
-                                            <th>comment</th>
+                                            <th>Usuario</th>
+                                            <th>Plan</th>
+                                            <th>Fecha de pago</th>
                                             <!-- <th>Tiempo Conexi&oacute;n</th> -->
                                           </tr>
                                         </thead>
@@ -127,10 +126,10 @@ $API->debug = false;
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
                                                         $datos_pppoe.= '<td>'.$name.'</td>';
-                                                        $datos_pppoe.= '<td>'.$ARRAY[$x]['password'].'</td>';
+                                                        //$datos_pppoe.= '<td>'.$ARRAY[$x]['password'].'</td>';
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
-                                                        //$datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
-                                                        $datos_pppoe.= '<td>'.$ARRAY[$x]['comment'].'</td>';
+                                                        $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
+                                                        //$datos_pppoe.= '<td>'.$ARRAY[$x]['comment'].'</td>';
                                                         //$datos_pppoe.= '<td>'.$ARRAY[$x]['uptime'].'</td>';
                                                         $datos_pppoe.= '</tr>';
                                                         echo $datos_pppoe;

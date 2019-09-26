@@ -98,7 +98,7 @@ function filter_enable($variable){
 
       	if($variable[$i]['disabled'] == "false" && $variable[$i]['profile'] !== "CORTADOS" && $variable[$i]['profile'] !== "default" && stripos($variable[$i]['name'], 'prueba') === false ){ //FILTRA SOLO LOS USUARIOS ACTIVOS
 
-          	if(strpos($variable[$i]['comment'], 'CONVENIO') == FALSE){
+          	if(stripos($variable[$i]['comment'], 'CONVENIO') === false){
 
             	$count_client_enable++;	//AUMENTO EN 1 LA CANTIDAD DE CLIENTES ACTIVOS QUE HAY
 
@@ -136,9 +136,11 @@ function megabytes($variable3){
 
   	for($f=0; $f<count($variable3); $f++){
         if($variable3[$f]['profile'] !== 'CORTADOS' && $variable3[$f]['disabled'] == "false"){
-            $dato = $variable3[$f]['profile'];
-            $resultado = intval(preg_replace('/[^0-9]+/', '', $dato));//OBTENER SOLO LOS NUMEROS DENTRO DEL NOMBRE DE EL PLAN. EJEMPLO: EMPRESARIAL-2-MEGAS, SE OBTIENE EL 2
-            $count_megabytes += $resultado;
+            if(stripos($variable3[$f]['comment'], "CONVENIO") === false && stripos($variable3[$f]['name'], 'prueba') === false){
+                $dato = $variable3[$f]['profile'];
+                $resultado = intval(preg_replace('/[^0-9]+/', '', $dato));//OBTENER SOLO LOS NUMEROS DENTRO DEL NOMBRE DE EL PLAN. EJEMPLO: EMPRESARIAL-2-MEGAS, SE OBTIENE EL 2
+                $count_megabytes += $resultado;
+            }
         }
     }
   	return $count_megabytes;
