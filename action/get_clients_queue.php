@@ -14,7 +14,7 @@ $API->debug = false;
 $arrayResponse = array();
 
 $ID_User = $_POST['Usuario'];
-//$ID_User = "*46BF";
+
 
 if ($API->connect(IP_MIKROTIK, USER, PASS)) {
 	$API->write("/ppp/secret/getall",false);

@@ -14,6 +14,9 @@ $API->debug = false;
 if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     //Creacion Usuarios PPPoE Usermanager
     //$customer = "admin";
+
+    $API->write("/ppp/secret/getall",false);
+
 /*
     $name = $_POST['name'];
     $phone = $_POST['phone'];
