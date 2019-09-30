@@ -25,9 +25,14 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
 		for($x=0;$x<count($ARRAY);$x++){
 			$name=sanear_string($ARRAY[$x]['name']);
 			$plan = $ARRAY[$x]['profile'];
+			$comment = sanear_string(utf8_decode($ARRAY[$x]['comment']));
 			//$limit_at = $ARRAY[$x]['limit-at'];
-			$arrayResponse[] = array("mensaje" => "Exitoso",
-			"nombre" => "$name", "Plan" => "$plan");
+			$arrayResponse[] = array(
+				"mensaje" => "Exitoso",
+				"nombre" => $name,
+				"Plan" => $plan,
+				"comment" => $comment
+			);
 		}
 	}else{ // si no hay ningun binding
 		$arrayResponse[] = array("status" => "error", "mensaje" => "No existen registros con este ID");

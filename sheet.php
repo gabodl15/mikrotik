@@ -64,42 +64,61 @@ $API->debug = false;
                 <ul class="breadcrumb">
                     <li><a href="#">Inicio</a></li>
                     <li class="active">Panel</li>
-                    <li class="">Bienvenido <?=$nombre?></li>
+                    <li class="">Bienvenido <?=$nombre;?></li>
                 </ul>
                 <!-- END BREADCRUMB -->
 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
 
-                    <?php if ($API->connect(IP_MIKROTIK, USER, PASS)){ ;?>
-                    <div class="row">
-                            <?php
-                            $ID_User = "*3";
-                            $API->write("/ppp/secret/getall",false);
-                            $API->write('?.id='.$ID_User,true);
+                    <?php
+
+                      $id_test = '*105';
+                      if ($API->connect(IP_MIKROTIK, USER, PASS)) {
+                            $API->write("/ppp/secret/getall", false);
+                            $API->write('?.id='.$id_test, true);
                             $READ = $API->read(false);
                             $ARRAY = $API->parse_response($READ);
-                            if(count($ARRAY)>0){ //Buscamos el valor ingresado en el POST
-                                for($x=0;$x<count($ARRAY);$x++){
-                                    echo sanear_string($ARRAY[$x]['name']);
-                                    echo sanear_string($ARRAY[$x]['target']);
-                                    echo $ARRAY[$x]['priority'];
-                                    echo $ARRAY[$x]['limit-at'];
-                                    echo $ARRAY[$x]['limit-at'];
-                                    echo array("status" => "successful", "mensaje" => "Exitoso",
-                                        "nombre" => "$name", "IP" => "$target", "Canal" => "$priority", "BW" => "$limit_at");
-                                }
-                            }else{ // si no hay ningun binding
-                                $arrayResponse[] = array("status" => "error", "mensaje" => "No existen registros con este ID");
-                            }
-                            ?>
+
+                            var_dump($ARRAY);
+
+                            $API->write('/ppp/secret/set', false);
+                            $API->write('=.id='.$id_test, false);
+                            $API->write('=profile=default', true);
+                            $READ = $API->read(false);
+                            $ARRAY = $API->parse_response($READ);
+                            echo "<br><br>";
+                            var_dump($ARRAY);
+                            echo "<br><br>";
+
+                            $API->write("/ppp/secret/getall", false);
+                            $API->write('?.id='.$id_test, true);
+                            $READ = $API->read(false);
+                            $ARRAY = $API->parse_response($READ);
+
+                            var_dump($ARRAY);
+
+                            // if(count($ARRAY)>0){   // si hay mas de 1 queue.
+                            //     for($x=0;$x<count($ARRAY);$x++){
+                            //         $name=$ARRAY[$x]['name'];
+                            //         $datos_pppoe = '';
+                            //         $datos_pppoe.= ' '.$name.' ';
+                            //         $datos_pppoe.= ' '.$ARRAY[$x]['.id'].'<br>';
+                            //         //$datos_pppoe.= '<td>'.$ARRAY[$x]['address'].'</td>';
+                            //         //$datos_pppoe.= '<td>'.$ARRAY[$x]['uptime'].'</td>';
+                            //         //$datos_pppoe.= '</tr>';
+                            //         echo $datos_pppoe;
+                            //         //var_dump($ARRAY);
+                            //     }
+                            // }else{ // si no hay ningun binding
+                            //         echo "No hay ningun IP-Bindings. <br/>";
+                            // }
+                      }
+                    ?>
 
                     </div>
+
                     <?php
-                        }
-                        else{
-                          print "no logueado";
-                        }
 
                     ?>
 

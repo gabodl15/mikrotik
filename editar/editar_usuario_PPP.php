@@ -86,7 +86,7 @@ $API->debug = false;
 		                                                        for($x=0;$x<count($ARRAY);$x++){
 		                                                            $name = sanear_string($ARRAY[$x]['name']);
 		                                                            $id_umkt = ($ARRAY[$x]['.id']);
-		                                                            $datos_pppoe = "<option value='$id_umkt'>".$name."</option>";
+		                                                            $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
 		                                                            echo $datos_pppoe;
 		                                                            //var_dump($ARRAY);
 		                                                        }
@@ -130,12 +130,13 @@ $API->debug = false;
                             </div><!-- Termina Columna md-5 -->
                             <div class="col-md-5"> <!-- Inicio Columna md-5-->
                             <div class="form-horizontal"><!-- Inicio Div formulario Horizontal -->
-                                <div class="form-group"> <!-- Inicia Grupo Control -->
-                                    <label class="col-md-4 control-label">Tasa Descarga Actual</label>
-                                    <div class="col-md-8">
-                                    <input type="text" class="form-control Kbytes" id="download_actual" readonly="yes">
-                                    </div>
-                                </div> <!-- Termina Grupo Control -->
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label">Tasa Descarga Actual</label>
+                                  <div class="col-md-8">
+                                  <textarea class="form-control" rows="7" readonly="yes" id="comment_actual" style="resize: none"></textarea>
+                                  </div>
+                                </div>
                                 <div class="form-group">
                                 <label class="col-md-8 control-label">&iquest;Editar Valores?</label>
                                     <div class="col-md-2">
@@ -299,14 +300,13 @@ $API->debug = false;
                     		  $("#Get_Form").fadeIn();
                    		    $("#Info_Form").hide();
 
-
                        		$("#actual_user").val(data[0].nombre);
                        		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
                        		//var ip_actual = (data[0].IP).replace('/32',''); //Remplazamos la mascara 32 para solo imprimir la IP
                        		//var descarga = Math.round((arr[1]/1024));
                        		var plan_actual = data[0].Plan;
                           //var enable = data[0].status;
-                       		//$("#download_actual").val(descarga + "K"); //Traemos Solo valor de descarga
+                       		$("#comment_actual").val(data[0].comment); //Traemos Solo valor de descarga
                        		//$("#plan_actual").val(canal);
                           $("#plan_actual").val(plan_actual);
                        		//$("#comment").val(enable);
@@ -326,12 +326,10 @@ $API->debug = false;
                   $.ajax({
                       type: "POST",
                       url: "../action/Procesos_EDIT_PPPoE.php",
-                      data: $("#Editar_ppp").serialize(),
+                      //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
+                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val(),
                       success: function(data){
-                          console.log(funciona);
-                      },
-                      beforeSend: function(){
-                          $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Editando');
+                          console.log("funciona");
                       },
                       error: function(data){
                           console.log("error"+data)
