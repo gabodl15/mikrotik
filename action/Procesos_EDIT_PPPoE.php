@@ -14,6 +14,7 @@ $API->debug = false;
 if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     //Creacion Usuarios PPPoE Usermanager
     //$customer = "admin";
+<<<<<<< HEAD:action/Procesos_EDIT_PPPoE.php
     $user = $_POST["id_user_mkt"];
     $plan = $_POST["edit_Segmento"];
 
@@ -25,6 +26,11 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
       $ARRAY = $API->parse_response($READ);
       }
     }
+=======
+
+    $API->write("/ppp/secret/getall",false);
+
+>>>>>>> 15b7a1d00628d71dd378cf370b018d3cbe5e61f6:action/Procesos_EDIT_PPPoE.php
 /*
     $name = $_POST['name'];
     $phone = $_POST['phone'];

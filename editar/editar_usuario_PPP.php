@@ -130,6 +130,7 @@ $API->debug = false;
                             </div><!-- Termina Columna md-5 -->
                             <div class="col-md-5"> <!-- Inicio Columna md-5-->
                             <div class="form-horizontal"><!-- Inicio Div formulario Horizontal -->
+<<<<<<< HEAD
 
                                 <div class="form-group">
                                   <label class="col-md-4 control-label">Tasa Descarga Actual</label>
@@ -137,6 +138,14 @@ $API->debug = false;
                                   <textarea class="form-control" rows="7" readonly="yes" id="comment_actual" style="resize: none"></textarea>
                                   </div>
                                 </div>
+=======
+                                <div class="form-group"> <!-- Inicia Grupo Control -->
+                                    <label class="col-md-4 control-label">Tasa Descarga Actual</label>
+                                    <div class="col-md-8">
+                                    <input type="text" class="form-control Kbytes" id="download_actual" readonly="yes">
+                                    </div>
+                                </div> <!-- Termina Grupo Control -->
+>>>>>>> 15b7a1d00628d71dd378cf370b018d3cbe5e61f6
                                 <div class="form-group">
                                 <label class="col-md-8 control-label">&iquest;Editar Valores?</label>
                                     <div class="col-md-2">
@@ -299,6 +308,10 @@ $API->debug = false;
                 		success: function(data){
                     		  $("#Get_Form").fadeIn();
                    		    $("#Info_Form").hide();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15b7a1d00628d71dd378cf370b018d3cbe5e61f6
 
                        		$("#actual_user").val(data[0].nombre);
                        		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
@@ -306,7 +319,11 @@ $API->debug = false;
                        		//var descarga = Math.round((arr[1]/1024));
                        		var plan_actual = data[0].Plan;
                           //var enable = data[0].status;
+<<<<<<< HEAD
                        		$("#comment_actual").val(data[0].comment); //Traemos Solo valor de descarga
+=======
+                       		//$("#download_actual").val(descarga + "K"); //Traemos Solo valor de descarga
+>>>>>>> 15b7a1d00628d71dd378cf370b018d3cbe5e61f6
                        		//$("#plan_actual").val(canal);
                           $("#plan_actual").val(plan_actual);
                        		//$("#comment").val(enable);
@@ -326,10 +343,19 @@ $API->debug = false;
                   $.ajax({
                       type: "POST",
                       url: "../action/Procesos_EDIT_PPPoE.php",
+<<<<<<< HEAD
                       //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
                       data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val(),
                       success: function(data){
                           console.log("funciona");
+=======
+                      data: $("#Editar_ppp").serialize(),
+                      success: function(data){
+                          console.log(funciona);
+                      },
+                      beforeSend: function(){
+                          $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Editando');
+>>>>>>> 15b7a1d00628d71dd378cf370b018d3cbe5e61f6
                       },
                       error: function(data){
                           console.log("error"+data)
