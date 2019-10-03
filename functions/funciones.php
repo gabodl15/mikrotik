@@ -5,8 +5,8 @@ function sanear_string($string)
     $string = trim($string);
 
     $string = str_replace(
-        array('<', '>',),
-        array('', '',),
+        array('<', '>', '|'),
+        array('', ''),
         $string
     );
   return $string;

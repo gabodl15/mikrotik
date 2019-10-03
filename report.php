@@ -64,25 +64,12 @@ $API->debug = false;
                 <ul class="breadcrumb">
                     <li><a href="#">Inicio</a></li>
                     <li class="active">Panel</li>
-                    <li class="">Bienvenido <?=$nombre;?></li>
+                    <li class="">Bienvenido <?=$nombre?></li>
                 </ul>
                 <!-- END BREADCRUMB -->
 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-
-                    <?php
-
-                    ?>
-
-                    </div>
-
-                    <?php
-
-                    ?>
-
-
-
 
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if($_SESSION['Authenticated']!="1"){
-header('Location: index');
+header('Location: ../index.php');
 }
 require("../includes/variables.php");
 require('../functions/funciones.php');
@@ -71,29 +71,31 @@ $API->debug = false;
                 <div class="page-content-wrap">
                 <div class="row"><!-- Inicia Fila Row -->
                 	 <div class="col-md-5">
-                		   <form role="form" id="Get_Info" action="../action/get_clients_queue.php" method="POST">
+                		   <form role="form" id="Get_Info" action="../action/get_clients_ppp.php" method="POST">
                 			 <div class="form-horizontal">
                 			      <div class="form-group"><!-- Inicia Grupo Control -->
                 				          <label class="col-md-4 control-label">Escoja el Usuario</label>
                 				          <div class="col-md-8"><!--Inicia Columna md-8-->
                 				                <select name="Usuario" id="Usuario" class="control-select select-definido">
+                                            <option value="" selected disabled hidden>Seleccione</option>
 		                                        <!-- Traemos los Usuarios de los Queues y los imprimimos en cada option -->
 		                                        <?php
-		                                                    $API->write("/ppp/secret/getall",true);
-		                                                    $READ = $API->read(false);
-		                                                    $ARRAY = $API->parse_response($READ);
-		                                                    if(count($ARRAY)>0){   // si hay mas de 1 queue.
-		                                                        for($x=0;$x<count($ARRAY);$x++){
-		                                                            $name = sanear_string($ARRAY[$x]['name']);
-		                                                            $id_umkt = ($ARRAY[$x]['.id']);
-		                                                            $datos_pppoe = "<option value='$id_umkt'>".$name."</option>";
-		                                                            echo $datos_pppoe;
-		                                                            //var_dump($ARRAY);
-		                                                        }
-		                                                        }else{ // si no hay ningun binding
-		                                                            echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
-		                                                        }
-		                                                    ?>
+                                              $API->write("/ppp/secret/getall",true);
+                                              $READ = $API->read(false);
+                                              $ARRAY = $API->parse_response($READ);
+
+                                              if(count($ARRAY)>0){   // si hay mas de 1 queue.
+                                                  for($x=0;$x<count($ARRAY);$x++){
+                                                      $name = sanear_string($ARRAY[$x]['name']);
+                                                      $id_umkt = ($ARRAY[$x]['.id']);
+                                                      $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
+                                                      echo $datos_pppoe;
+                                                      //var_dump($ARRAY);
+                                                  }
+                                                  }else{ // si no hay ningun binding
+                                                      echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
+                                                  }
+                                            ?>
 		                                        <!-- -->
                                         </select>
                                   </div><!-- Termina  Columna md-8-->
@@ -130,12 +132,22 @@ $API->debug = false;
                             </div><!-- Termina Columna md-5 -->
                             <div class="col-md-5"> <!-- Inicio Columna md-5-->
                             <div class="form-horizontal"><!-- Inicio Div formulario Horizontal -->
+<<<<<<< HEAD
                                 <div class="form-group"> <!-- Inicia Grupo Control -->
                                     <label class="col-md-4 control-label">Tasa Descarga Actual</label>
                                     <div class="col-md-8">
                                     <input type="text" class="form-control Kbytes" id="download_actual" readonly="yes">
                                     </div>
                                 </div> <!-- Termina Grupo Control -->
+=======
+
+                                <div class="form-group">
+                                  <label class="col-md-4 control-label">Comentario</label>
+                                  <div class="col-md-8">
+                                  <textarea class="form-control" rows="7" readonly="yes" id="comment_actual" style="resize: none"></textarea>
+                                  </div>
+                                </div>
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                                 <div class="form-group">
                                 <label class="col-md-8 control-label">&iquest;Editar Valores?</label>
                                     <div class="col-md-2">
@@ -151,7 +163,11 @@ $API->debug = false;
                     </div>
                 </div><!-- Termina Fila Row -->
 		        <!-- Termina Formulario -->
+<<<<<<< HEAD
                 <div class="row" id="Edicion_Queues"><!-- Inicia Fila Row Formulario De Edicion-->
+=======
+                <div class="row" id="Edicion_ppp"><!-- Inicia Fila Row Formulario De Edicion-->
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                 <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
                     <h3 style="text-align: center; color:#13B21B">Formulario de edicion</h3>
                     <br>
@@ -159,6 +175,7 @@ $API->debug = false;
                     <div class="form-horizontal">
                             <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
                         <div class="form-group">
+<<<<<<< HEAD
                                 <label class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-8">
                                 <input type="text" id="edit_name" name="edit_name" class="form-control" placeholder="Nombre Completo de Cliente">
@@ -174,6 +191,11 @@ $API->debug = false;
                                 <label class="col-md-4 control-label">Nueva IP</label>
                                 <div class="col-md-8">
                                 <input type="text" name="edit_download" id="edit_download" class="form-control" placeholder="Nueva IP">
+=======
+                            <label class="col-md-4 control-label">Comentario</label>
+                            <div class="col-md-8">
+                            <textarea class="form-control" id="comentario" rows="7" style="resize: none"></textarea>
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                             </div>
                         </div>
                     </div>
@@ -181,6 +203,7 @@ $API->debug = false;
 
                     <div class="col-md-5">
                     <div class="form-horizontal">
+<<<<<<< HEAD
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Nuevo Identificacion</label>
                                 <div class="col-md-8">
@@ -189,6 +212,11 @@ $API->debug = false;
                             </div>
                             <div class="form-group">
                             <label class="col-md-4 control-label">Plan Nuevo</label>
+=======
+
+                            <div class="form-group">
+                            <label class="col-md-4 control-label">Plan</label>
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                             <div class="col-md-8">
                                 <select name="edit_Segmento" id="edit_Segmento" class="control-select select">
 
@@ -202,12 +230,15 @@ $API->debug = false;
                                     ?>
                                 </select>
                             </div>
+<<<<<<< HEAD
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Nombre de Usuario</label>
                                 <div class="col-md-8">
                                 <input type="text" name="edit_user" id="edit_user" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
                                 </div>
+=======
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                             </div>
 
                             <div class="form-group">
@@ -280,7 +311,7 @@ $API->debug = false;
         <script type="text/javascript">
             jQuery(document).ready(function() {
             	$("#Get_Form").hide();
-            	$("#Edicion_Queues").hide();
+            	$("#Edicion_ppp").hide();
             	$('#edit_no_id').blur(function(){
             		var user_name = $('#edit_name').val();
             		var user = user_name.replace(/\s+/g, '');
@@ -288,18 +319,71 @@ $API->debug = false;
             		$('#edit_user').val(user_id+"-"+user);
             	});
             	$("#Usuario").change(function(){
-            	var dato_usuario = $('#Usuario').val(); // Tomamos el ID del campo Usuario para ejecutar la consulta
-            	//Ejecutamos la consulta por medio de Ajax
+                $("#Edicion_ppp").slideUp();
+                $("#Editar_Valores").prop('checked', false);
+              	var dato_usuario = $('#Usuario').val(); // Tomamos el ID del campo Usuario para ejecutar la consulta
+              	//Ejecutamos la consulta por medio de Ajax
             		$.ajax({
             			  type: "POST",
+<<<<<<< HEAD
                 		url: '../action/get_clients_queue.php',
+=======
+                		url: '../action/get_clients_ppp.php',
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                 		data: "Usuario="+dato_usuario, //
                 		dataType: "JSON",
                 		success: function(data){
                     		  $("#Get_Form").fadeIn();
                    		    $("#Info_Form").hide();
 
+                       		$("#actual_user").val(data[0].nombre);
+                       		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
+                       		//var ip_actual = (data[0].IP).replace('/32',''); //Remplazamos la mascara 32 para solo imprimir la IP
+                       		//var descarga = Math.round((arr[1]/1024));
+                       		var plan_actual = data[0].Plan;
+                          //var enable = data[0].status;
+                       		$("#comment_actual").val(data[0].comment); //Traemos Solo valor de descarga
+                       		//$("#plan_actual").val(canal);
+                          $("#plan_actual").val(plan_actual);
+                       		//$("#comment").val(enable);
+                       		//$("#ID_Usuario_MKT").val(dato_usuario);
+                    },
+                    beforeSend: function(){
+                        $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Enviando datos, por favor espere');
+                    },
+                    error: function(data){
+                        console.log("error"+data);
+                    }
+                });
+                //Evitamos cambios en el formulario
+                return false;
+              });
+              $("#Editar_ppp").submit(function(){
+                  $.ajax({
+                      type: "POST",
+                      url: "../action/Procesos_EDIT_PPPoE.php",
+                      //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
+                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val() +"&secret_user_mkt="+$('#actual_user').val(),
+                      success: function(data){
+                          $("#Editar_Valores").prop('checked', false);
+                          $("#Get_Form").slideUp();
+                          $("#Edicion_ppp").slideUp();
+                      },
+                      error: function(data){
+                          console.log("error"+data)
+                      }
+                  });
+                  return false;
+              });
+          	  $('.Kbytes').blur(function(){
+          		    if( this.value.indexOf('K') == -1 ){
+          			       this.value = this.value + 'K';
+          		    }
+          	  });
+          	  $("#Editar_Valores").click(function(){
+          		    var check_editar = $("#Editar_Valores").prop('checked', true);
 
+<<<<<<< HEAD
                        		$("#actual_user").val(data[0].nombre);
                        		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
                        		//var ip_actual = (data[0].IP).replace('/32',''); //Remplazamos la mascara 32 para solo imprimir la IP
@@ -350,6 +434,14 @@ $API->debug = false;
           			       $("#Edicion_Queues").fadeIn();
           		    }else{
           			       $("#Edicion_Queues").fadeOut();
+=======
+                  $("#comentario").val($("#comment_actual").val());
+
+                  if(check_editar){
+          			       $("#Edicion_ppp").fadeIn();
+          		    }else{
+          			       $("#Edicion_ppp").fadeOut();
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
           		    }
           	  });
             	$('#Notificacion').click(function(){

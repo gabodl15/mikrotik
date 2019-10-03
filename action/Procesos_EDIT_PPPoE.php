@@ -14,9 +14,38 @@ $API->debug = false;
 if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     //Creacion Usuarios PPPoE Usermanager
     //$customer = "admin";
+<<<<<<< HEAD:action/Procesos_EDIT_PPPoE.php
 
     $API->write("/ppp/secret/getall",false);
 
+=======
+    $user = $_POST["id_user_mkt"];
+    $plan = $_POST["edit_Segmento"];
+    $secret = $_POST["secret_user_mkt"];
+
+    if (isset($user)) {
+      $API->write("/ppp/secret/set", false);
+      $API->write("=.id=".$user, false);
+      $API->write("=profile=".$plan, true);
+      $READ = $API->read(false);
+      //$ARRAY = $API->parse_response($READ);
+      }
+
+      //ELIMINANDO AL USUARIO DE ACTIVE CONECTION PARA QUE SE APLIQUE EL CAMBIO QUE SE REALICE EN PROFILE
+
+      $API->write("/ppp/active/getall", false);
+      $API->write("?name=".$secret, true);
+      $READ = $API->read(false);
+      $ARRAY = $API->parse_response($READ);
+
+      $active = $ARRAY[0]['.id'];
+
+      $API->write("/ppp/active/remove", false);
+      $API->write("=.id=".$active, true);
+      $READ = $API->read(false);
+
+    }
+>>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea:action/Procesos_EDIT_PPPoE.php
 /*
     $name = $_POST['name'];
     $phone = $_POST['phone'];
@@ -85,7 +114,7 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
             $creado = "no";
         }
 */
-}else{
+else{
         echo "No hay conexion";
     }
 ?>

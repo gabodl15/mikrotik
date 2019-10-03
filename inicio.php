@@ -284,7 +284,7 @@ $API->debug = false;
                                   $API->write("/ppp/secret/getall",true);
                                   $READ = $API->read(false);
                                   $ARRAY = $API->parse_response($READ);
-                                  $result = getSecret($ARRAY);                                  
+                                  $result = getSecret($ARRAY);
                                   extract($result);
                               ?>
                                 <ul class="list-group">
@@ -302,6 +302,7 @@ $API->debug = false;
                                     </li>
                                 </ul>
                             </div>
+
                             <!-- END WIDGET CLOCK -->
                         </div>
 
