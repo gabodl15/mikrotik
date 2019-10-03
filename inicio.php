@@ -303,10 +303,6 @@ $API->debug = false;
                                 </ul>
                             </div>
 
-
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Mostrar Modal
-                            </button>
                             <!-- END WIDGET CLOCK -->
                         </div>
 

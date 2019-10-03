@@ -1,7 +1,7 @@
 <?php
 session_start();
 if($_SESSION['Authenticated']!="1"){
-header('Location: index');
+header('Location: ../index.php');
 }
 require("../includes/variables.php");
 require('../functions/funciones.php');
@@ -71,29 +71,31 @@ $API->debug = false;
                 <div class="page-content-wrap">
                 <div class="row"><!-- Inicia Fila Row -->
                 	 <div class="col-md-5">
-                		   <form role="form" id="Get_Info" action="../action/get_clients_queue.php" method="POST">
+                		   <form role="form" id="Get_Info" action="../action/get_clients_ppp.php" method="POST">
                 			 <div class="form-horizontal">
                 			      <div class="form-group"><!-- Inicia Grupo Control -->
                 				          <label class="col-md-4 control-label">Escoja el Usuario</label>
                 				          <div class="col-md-8"><!--Inicia Columna md-8-->
                 				                <select name="Usuario" id="Usuario" class="control-select select-definido">
+                                            <option value="" selected disabled hidden>Seleccione</option>
 		                                        <!-- Traemos los Usuarios de los Queues y los imprimimos en cada option -->
 		                                        <?php
-		                                                    $API->write("/ppp/secret/getall",true);
-		                                                    $READ = $API->read(false);
-		                                                    $ARRAY = $API->parse_response($READ);
-		                                                    if(count($ARRAY)>0){   // si hay mas de 1 queue.
-		                                                        for($x=0;$x<count($ARRAY);$x++){
-		                                                            $name = sanear_string($ARRAY[$x]['name']);
-		                                                            $id_umkt = ($ARRAY[$x]['.id']);
-		                                                            $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
-		                                                            echo $datos_pppoe;
-		                                                            //var_dump($ARRAY);
-		                                                        }
-		                                                        }else{ // si no hay ningun binding
-		                                                            echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
-		                                                        }
-		                                                    ?>
+                                              $API->write("/ppp/secret/getall",true);
+                                              $READ = $API->read(false);
+                                              $ARRAY = $API->parse_response($READ);
+
+                                              if(count($ARRAY)>0){   // si hay mas de 1 queue.
+                                                  for($x=0;$x<count($ARRAY);$x++){
+                                                      $name = sanear_string($ARRAY[$x]['name']);
+                                                      $id_umkt = ($ARRAY[$x]['.id']);
+                                                      $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
+                                                      echo $datos_pppoe;
+                                                      //var_dump($ARRAY);
+                                                  }
+                                                  }else{ // si no hay ningun binding
+                                                      echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
+                                                  }
+                                            ?>
 		                                        <!-- -->
                                         </select>
                                   </div><!-- Termina  Columna md-8-->
@@ -152,7 +154,7 @@ $API->debug = false;
                     </div>
                 </div><!-- Termina Fila Row -->
 		        <!-- Termina Formulario -->
-                <div class="row" id="Edicion_Queues"><!-- Inicia Fila Row Formulario De Edicion-->
+                <div class="row" id="Edicion_ppp"><!-- Inicia Fila Row Formulario De Edicion-->
                 <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
                     <h3 style="text-align: center; color:#13B21B">Formulario de edicion</h3>
                     <br>
@@ -160,15 +162,9 @@ $API->debug = false;
                     <div class="form-horizontal">
                             <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
                         <div class="form-group">
-                                <label class="col-md-4 control-label">Nombre</label>
-                                <div class="col-md-8">
-                                <input type="text" id="edit_name" name="edit_name" class="form-control" placeholder="Nombre Completo de Cliente">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-md-4 control-label">Comentario</label>
                             <div class="col-md-8">
-                            <textarea class="form-control" rows="7"></textarea>                            
+                            <textarea class="form-control" id="comentario" rows="7" style="resize: none"></textarea>
                             </div>
                         </div>
                     </div>
@@ -264,7 +260,7 @@ $API->debug = false;
         <script type="text/javascript">
             jQuery(document).ready(function() {
             	$("#Get_Form").hide();
-            	$("#Edicion_Queues").hide();
+            	$("#Edicion_ppp").hide();
             	$('#edit_no_id').blur(function(){
             		var user_name = $('#edit_name').val();
             		var user = user_name.replace(/\s+/g, '');
@@ -272,11 +268,13 @@ $API->debug = false;
             		$('#edit_user').val(user_id+"-"+user);
             	});
             	$("#Usuario").change(function(){
-            	var dato_usuario = $('#Usuario').val(); // Tomamos el ID del campo Usuario para ejecutar la consulta
-            	//Ejecutamos la consulta por medio de Ajax
+                $("#Edicion_ppp").slideUp();
+                $("#Editar_Valores").prop('checked', false);
+              	var dato_usuario = $('#Usuario').val(); // Tomamos el ID del campo Usuario para ejecutar la consulta
+              	//Ejecutamos la consulta por medio de Ajax
             		$.ajax({
             			  type: "POST",
-                		url: '../action/get_clients_queue.php',
+                		url: '../action/get_clients_ppp.php',
                 		data: "Usuario="+dato_usuario, //
                 		dataType: "JSON",
                 		success: function(data){
@@ -310,11 +308,11 @@ $API->debug = false;
                       type: "POST",
                       url: "../action/Procesos_EDIT_PPPoE.php",
                       //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
-                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val(),
+                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val() +"&secret_user_mkt="+$('#actual_user').val(),
                       success: function(data){
-                        $("#Editar_Valores").prop('checked', false);
+                          $("#Editar_Valores").prop('checked', false);
                           $("#Get_Form").slideUp();
-                          $("#Edicion_Queues").slideUp()();
+                          $("#Edicion_ppp").slideUp();
                       },
                       error: function(data){
                           console.log("error"+data)
@@ -329,10 +327,13 @@ $API->debug = false;
           	  });
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
-          		    if(check_editar){
-          			       $("#Edicion_Queues").fadeIn();
+
+                  $("#comentario").val($("#comment_actual").val());
+
+                  if(check_editar){
+          			       $("#Edicion_ppp").fadeIn();
           		    }else{
-          			       $("#Edicion_Queues").fadeOut();
+          			       $("#Edicion_ppp").fadeOut();
           		    }
           	  });
             	$('#Notificacion').click(function(){

@@ -16,14 +16,29 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     //$customer = "admin";
     $user = $_POST["id_user_mkt"];
     $plan = $_POST["edit_Segmento"];
+    $secret = $_POST["secret_user_mkt"];
 
     if (isset($user)) {
       $API->write("/ppp/secret/set", false);
       $API->write("=.id=".$user, false);
       $API->write("=profile=".$plan, true);
       $READ = $API->read(false);
-      $ARRAY = $API->parse_response($READ);
+      //$ARRAY = $API->parse_response($READ);
       }
+
+      //ELIMINANDO AL USUARIO DE ACTIVE CONECTION PARA QUE SE APLIQUE EL CAMBIO QUE SE REALICE EN PROFILE
+
+      $API->write("/ppp/active/getall", false);
+      $API->write("?name=".$secret, true);
+      $READ = $API->read(false);
+      $ARRAY = $API->parse_response($READ);
+
+      $active = $ARRAY[0]['.id'];
+
+      $API->write("/ppp/active/remove", false);
+      $API->write("=.id=".$active, true);
+      $READ = $API->read(false);
+
     }
 /*
     $name = $_POST['name'];
