@@ -72,11 +72,10 @@ $API->debug = false;
                 <div class="page-content-wrap">
                     <div class="row">
                         <div class="col-md-8">
-                          <div class="panel panel-primary">...</div>
-                          <div class="panel panel-success">...</div>
-                          <div class="panel panel-info">...</div>
-                          <div class="panel panel-warning">...</div>
-                          <div class="panel panel-danger">...</div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Panel Heading</div>
+                                <div class="panel-body">Panel Content</div>
+                            </div>
                         </div>
                     </div>
                 </div>
