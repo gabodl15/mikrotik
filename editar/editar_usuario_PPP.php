@@ -132,22 +132,12 @@ $API->debug = false;
                             </div><!-- Termina Columna md-5 -->
                             <div class="col-md-5"> <!-- Inicio Columna md-5-->
                             <div class="form-horizontal"><!-- Inicio Div formulario Horizontal -->
-<<<<<<< HEAD
-                                <div class="form-group"> <!-- Inicia Grupo Control -->
-                                    <label class="col-md-4 control-label">Tasa Descarga Actual</label>
-                                    <div class="col-md-8">
-                                    <input type="text" class="form-control Kbytes" id="download_actual" readonly="yes">
-                                    </div>
-                                </div> <!-- Termina Grupo Control -->
-=======
-
                                 <div class="form-group">
                                   <label class="col-md-4 control-label">Comentario</label>
                                   <div class="col-md-8">
                                   <textarea class="form-control" rows="7" readonly="yes" id="comment_actual" style="resize: none"></textarea>
                                   </div>
                                 </div>
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                                 <div class="form-group">
                                 <label class="col-md-8 control-label">&iquest;Editar Valores?</label>
                                     <div class="col-md-2">
@@ -163,11 +153,8 @@ $API->debug = false;
                     </div>
                 </div><!-- Termina Fila Row -->
 		        <!-- Termina Formulario -->
-<<<<<<< HEAD
-                <div class="row" id="Edicion_Queues"><!-- Inicia Fila Row Formulario De Edicion-->
-=======
+
                 <div class="row" id="Edicion_ppp"><!-- Inicia Fila Row Formulario De Edicion-->
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                 <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
                     <h3 style="text-align: center; color:#13B21B">Formulario de edicion</h3>
                     <br>
@@ -175,27 +162,9 @@ $API->debug = false;
                     <div class="form-horizontal">
                             <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
                         <div class="form-group">
-<<<<<<< HEAD
-                                <label class="col-md-4 control-label">Nombre</label>
-                                <div class="col-md-8">
-                                <input type="text" id="edit_name" name="edit_name" class="form-control" placeholder="Nombre Completo de Cliente">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                                <label class="col-md-4 control-label">Tasa de descarga</label>
-                                <div class="col-md-8">
-                                <input type="text" name="edit_download" id="edit_download" class="form-control Kbytes" placeholder="">
-                                </div>
-                        </div>
-                        <div class="form-group">
-                                <label class="col-md-4 control-label">Nueva IP</label>
-                                <div class="col-md-8">
-                                <input type="text" name="edit_download" id="edit_download" class="form-control" placeholder="Nueva IP">
-=======
                             <label class="col-md-4 control-label">Comentario</label>
                             <div class="col-md-8">
                             <textarea class="form-control" id="comentario" rows="7" style="resize: none"></textarea>
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                             </div>
                         </div>
                     </div>
@@ -203,44 +172,22 @@ $API->debug = false;
 
                     <div class="col-md-5">
                     <div class="form-horizontal">
-<<<<<<< HEAD
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Nuevo Identificacion</label>
+                                <label class="col-md-4 control-label">Plan</label>
                                 <div class="col-md-8">
-                                <input type="text" name="edit_no_id" id="edit_no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
+                                    <select name="edit_Segmento" id="edit_Segmento" class="control-select select">
+
+                                        <?php
+                                            $API->write("/ppp/profile/getall", true);
+                                            $READ = $API->read(false);
+                                            $ARRAY = $API->parse_response($READ);
+                                            for ($x = 0 ; $x < count($ARRAY) ; $x++){
+                                                echo "<option>".$ARRAY[$x]['name']."</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                            <label class="col-md-4 control-label">Plan Nuevo</label>
-=======
-
-                            <div class="form-group">
-                            <label class="col-md-4 control-label">Plan</label>
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
-                            <div class="col-md-8">
-                                <select name="edit_Segmento" id="edit_Segmento" class="control-select select">
-
-                                    <?php
-                                        $API->write("/ppp/profile/getall", true);
-                                        $READ = $API->read(false);
-                                        $ARRAY = $API->parse_response($READ);
-                                        for ($x = 0 ; $x < count($ARRAY) ; $x++){
-                                            echo "<option>".$ARRAY[$x]['name']."</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-<<<<<<< HEAD
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Nombre de Usuario</label>
-                                <div class="col-md-8">
-                                <input type="text" name="edit_user" id="edit_user" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
-                                </div>
-=======
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
-                            </div>
-
                             <div class="form-group">
                                 <div class="">
                                     <button type="submit" class="btn btn-primary pull-right">Agregar</button>
@@ -324,12 +271,8 @@ $API->debug = false;
               	var dato_usuario = $('#Usuario').val(); // Tomamos el ID del campo Usuario para ejecutar la consulta
               	//Ejecutamos la consulta por medio de Ajax
             		$.ajax({
-            			  type: "POST",
-<<<<<<< HEAD
-                		url: '../action/get_clients_queue.php',
-=======
+            			type: "POST",
                 		url: '../action/get_clients_ppp.php',
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
                 		data: "Usuario="+dato_usuario, //
                 		dataType: "JSON",
                 		success: function(data){
@@ -351,13 +294,13 @@ $API->debug = false;
                     beforeSend: function(){
                         $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Enviando datos, por favor espere');
                     },
-                    error: function(data){
-                        console.log("error"+data);
+                      error: function(data){
+                          console.log("error"+data);
                     }
-                });
+                  });
                 //Evitamos cambios en el formulario
                 return false;
-              });
+              	});
               $("#Editar_ppp").submit(function(){
                   $.ajax({
                       type: "POST",
@@ -383,65 +326,12 @@ $API->debug = false;
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
 
-<<<<<<< HEAD
-                       		$("#actual_user").val(data[0].nombre);
-                       		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
-                       		//var ip_actual = (data[0].IP).replace('/32',''); //Remplazamos la mascara 32 para solo imprimir la IP
-                       		//var descarga = Math.round((arr[1]/1024));
-                       		var plan_actual = data[0].Plan;
-                          //var enable = data[0].status;
-                       		//$("#download_actual").val(descarga + "K"); //Traemos Solo valor de descarga
-                       		//$("#plan_actual").val(canal);
-                          $("#plan_actual").val(plan_actual);
-                       		//$("#comment").val(enable);
-                       		//$("#ID_Usuario_MKT").val(dato_usuario);
-                    },
-                    beforeSend: function(){
-                        $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Enviando datos, por favor espere');
-                    },
-                    error: function(data){
-                        console.log("error"+data);
-                    }
-                });
-                //Evitamos cambios en el formulario
-                return false;
-              });
-              $("#Editar_ppp").submit(function(){
-                  $.ajax({
-                      type: "POST",
-                      url: "../action/Procesos_EDIT_PPPoE.php",
-                      data: $("#Editar_ppp").serialize(),
-                      success: function(data){
-                          console.log(funciona);
-                      },
-                      beforeSend: function(){
-                          $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Editando');
-                      },
-                      error: function(data){
-                          console.log("error"+data)
-                      }
-                  });
-                  return false;
-              });
-          	  $('.Kbytes').blur(function(){
-          		    if( this.value.indexOf('K') == -1 ){
-          			       this.value = this.value + 'K';
-          		    }
-          	  });
-          	  $("#Editar_Valores").click(function(){
-          		    var check_editar = $("#Editar_Valores").prop('checked', true);
-          		    if(check_editar){
-          			       $("#Edicion_Queues").fadeIn();
-          		    }else{
-          			       $("#Edicion_Queues").fadeOut();
-=======
                   $("#comentario").val($("#comment_actual").val());
 
                   if(check_editar){
           			       $("#Edicion_ppp").fadeIn();
           		    }else{
           			       $("#Edicion_ppp").fadeOut();
->>>>>>> d3ce21ba9a0e17b774713f9887e2a238fa110eea
           		    }
           	  });
             	$('#Notificacion').click(function(){
