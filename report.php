@@ -70,7 +70,15 @@ $API->debug = false;
 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="panel panel-primary">...</div>
+                          <div class="panel panel-success">...</div>
+                          <div class="panel panel-info">...</div>
+                          <div class="panel panel-warning">...</div>
+                          <div class="panel panel-danger">...</div>
+                        </div>
+                    </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
             </div>

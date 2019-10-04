@@ -8,7 +8,9 @@ Está hecho principalmente para configuraciones ppp, otras opciones aun en desar
 
 En la carpeta 'includes' se encuentra el archivo gestionmk.sql al final está la linea de insert, sustituya el nombre de usuario y la clave (en sha1) para loguearse.
 
-Tambien realice un insert en la tabla mikrotiks colocando la ip del mikrotik, el nombre que desee colocar a ese mikrotik (esto es para identificar si tiene varios mikrotiks) el usuario y la clave con que se loguea en mikrotik (esto son los usuarios que usa para loguearse por winbox)
+Tambien realice un insert en la tabla mikrotiks colocando la ip del mikrotik, el nombre que desee colocar a ese mikrotik (esto es para identificar si tiene varios mikrotiks) el usuario y la clave con que se loguea en mikrotik (esto son los usuarios que usa para loguearse por winbox).
+
+
 ---------------------------------------------------------------------------------------------------------------------------------
 
 Esta es la versión inicial del sistema de control de Mikrotik RouterBoard desde PHP.
