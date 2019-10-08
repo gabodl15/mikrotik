@@ -72,11 +72,101 @@ $API->debug = false;
                 <div class="page-content-wrap">
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Panel Heading</div>
-                                <div class="panel-body">Panel Content</div>
-                            </div>
+
+                            <?php
+
+                            define('DB_HOST', '127.0.0.1');
+                            define('DB_USER', 'internautas');
+                            define('DB_PASS', 'int65');
+                            define('DB_DB', 'mikrotiks');
+                            $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+
+                            //$query = mysqli_query($conexiondb,"INSERT INTO reports(id_client, report) VALUES('1','Esto es una prueba')");
+                            $query = mysqli_query($conexiondb, "SELECT name_client, report FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
+
+                            // var_dump($query);
+                            if ($query->num_rows > 0) {
+                                //$datos = $query->fetch_assoc();
+                                while ($datos = $query->fetch_assoc()) {
+                                    print "<div class='panel panel-default'>";
+                                    print "<div class='panel-heading'>".$datos['name_client']."</div>";
+                                    print "<div class='panel-body'>".$datos['report']."</div>";
+                                    print "</div>";
+                                }
+                            }else {
+                              print "<div class='panel panel-default'>";
+                              print "<div class='panel-heading'>No se tiene ningun caso abierto</div>";
+                              print "<div class='panel-body'>...</div>";
+                              print "</div>";
+                            }
+                            ?>
+
                         </div>
+
+                          <!-- PLUSS -->
+                          <div class="col-md-4">
+                            <div class="col-md-offset-5">
+                              <i class="fa fa-plus-circle fa-5x" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
+                            </div>
+                          </div>
+                          <!-- PLUSS -->
+
+                          <!-- Button trigger modal -->
+                          <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                            Launch demo modal
+                          </button> -->
+
+                          <!-- MODAL -->
+                          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                  <form class="" action="index.html" method="post">
+
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Usuario</label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre Completo de Cliente" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Comentarios</label>
+                                            <div class="col-md-8">
+                                                <textarea name="comentarios" class="form-control" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                   <!-- <div class="form-group">
+                                            <label class="col-md-4 control-label">Identificaci&oacute;n</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="no_id" id="no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /MODAL -->
+
+
+
+
+                    </div>
+                    <div class="row">
+
                     </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
