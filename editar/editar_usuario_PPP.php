@@ -82,15 +82,20 @@ $API->debug = false;
 		                                        <?php
                                               $API->write("/ppp/secret/getall",true);
                                               $READ = $API->read(false);
-                                              $ARRAY = $API->parse_response($READ);
+                                              $users = $API->parse_response($READ);
 
-                                              if(count($ARRAY)>0){   // si hay mas de 1 queue.
-                                                  for($x=0;$x<count($ARRAY);$x++){
-                                                      $name = sanear_string($ARRAY[$x]['name']);
-                                                      $id_umkt = ($ARRAY[$x]['.id']);
+                                              foreach ($users as $key => $row) {
+                                                  $aux[$key] = $row['name'];
+                                              }
+                                              array_multisort($aux, SORT_ASC, $users);
+
+                                              if(count($users)>0){   // si hay mas de 1 queue.
+                                                  for($x=0;$x<count($users);$x++){
+                                                      $name = sanear_string($users[$x]['name']);
+                                                      $id_umkt = ($users[$x]['.id']);
                                                       $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
                                                       echo $datos_pppoe;
-                                                      //var_dump($ARRAY);
+                                                      //var_dump($users);
                                                   }
                                                   }else{ // si no hay ningun binding
                                                       echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
@@ -164,7 +169,7 @@ $API->debug = false;
                         <div class="form-group">
                             <label class="col-md-4 control-label">Comentario</label>
                             <div class="col-md-8">
-                            <textarea class="form-control" id="comentario" rows="7" style="resize: none"></textarea>
+                            <textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
                             </div>
                         </div>
                     </div>
@@ -306,7 +311,7 @@ $API->debug = false;
                       type: "POST",
                       url: "../action/Procesos_EDIT_PPPoE.php",
                       //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
-                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val() +"&secret_user_mkt="+$('#actual_user').val(),
+                      data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val() +"&secret_user_mkt="+$('#actual_user').val() +"&comment="+$("#new-comment").val(),
                       success: function(data){
                           $("#Editar_Valores").prop('checked', false);
                           $("#Get_Form").slideUp();
@@ -326,7 +331,7 @@ $API->debug = false;
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
 
-                  $("#comentario").val($("#comment_actual").val());
+                  $("#new-comment").val($("#comment_actual").val());
 
                   if(check_editar){
           			       $("#Edicion_ppp").fadeIn();

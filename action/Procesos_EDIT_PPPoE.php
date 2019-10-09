@@ -16,10 +16,11 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     $user = $_POST["id_user_mkt"];
     $plan = $_POST["edit_Segmento"];
     $secret = $_POST["secret_user_mkt"];
-
+    $comment = $_POST["comment"];
     if (isset($user)) {
       $API->write("/ppp/secret/set", false);
       $API->write("=.id=".$user, false);
+      $API->write("=comment=".$comment, false);
       $API->write("=profile=".$plan, true);
       $READ = $API->read(false);
       //$ARRAY = $API->parse_response($READ);

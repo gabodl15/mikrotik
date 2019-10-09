@@ -107,6 +107,7 @@ $API->debug = false;
                           <div class="col-md-4">
                             <div class="col-md-offset-5">
                               <i class="fa fa-plus-circle fa-5x" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i>
+                              <!-- <button type="button" class="btn btn-success" aria-hidden="true" data-toggle="modal" data-target="#myModal">Crear</button> -->
                             </div>
                           </div>
                           <!-- PLUSS -->
@@ -132,7 +133,36 @@ $API->debug = false;
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Usuario</label>
                                             <div class="col-md-8">
-                                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre Completo de Cliente" required>
+                                                <!-- <input type="text" id="name" name="name" class="form-control" placeholder="Nombre Completo de Cliente" required> -->
+                                                <select name="Usuario" id="Usuario" class="control-select select-definido">
+                                                    <option value="" selected disabled hidden>Seleccione</option>
+        		                                        <!-- Traemos los Usuarios de los Queues y los imprimimos en cada option -->
+        		                                        <?php
+                                                      if($API->connect(IP_MIKROTIK, USER, PASS)) {
+                                                          $API->write("/ppp/secret/getall",true);
+                                                          $READ = $API->read(false);
+                                                          $users = $API->parse_response($READ);
+
+                                                          foreach ($users as $key => $row) {
+                                                              $aux[$key] = $row['name'];
+                                                          }
+                                                          array_multisort($aux, SORT_ASC, $users);
+
+                                                          if(count($users)>0){   // si hay mas de 1 queue.
+                                                              for($x=0;$x<count($users);$x++){
+                                                                  $name = sanear_string($users[$x]['name']);
+                                                                  $id_umkt = ($users[$x]['.id']);
+                                                                  $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
+                                                                  echo $datos_pppoe;
+                                                                  //var_dump($users);
+                                                              } 
+                                                              }else{ // si no hay ningun binding
+                                                                  echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
+                                                              }
+                                                        }
+                                                    ?>
+        		                                        <!-- -->
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
