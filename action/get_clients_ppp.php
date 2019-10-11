@@ -14,21 +14,25 @@ $API->debug = false;
 $arrayResponse = array();
 
 $ID_User = $_POST['Usuario'];
-//$ID_User = "*46BF";
+
 
 if ($API->connect(IP_MIKROTIK, USER, PASS)) {
-	$API->write("/queue/simple/getall",false);
+	$API->write("/ppp/secret/getall",false);
 	$API->write('?.id='.$ID_User,true);
 	$READ = $API->read(false);
 	$ARRAY = $API->parse_response($READ);
 	if(count($ARRAY)>0){ //Buscamos el valor ingresado en el POST
 		for($x=0;$x<count($ARRAY);$x++){
 			$name=sanear_string($ARRAY[$x]['name']);
-			$target = sanear_string($ARRAY[$x]['target']);
-			$priority = $ARRAY[$x]['priority'];
-			$limit_at = $ARRAY[$x]['limit-at'];
-			$arrayResponse[] = array("status" => "successful", "mensaje" => "Exitoso",
-			"nombre" => "$name", "IP" => "$target", "Canal" => "$priority", "BW" => "$limit_at");
+			$plan = $ARRAY[$x]['profile'];
+			$comment = sanear_string(utf8_decode($ARRAY[$x]['comment']));
+			//$limit_at = $ARRAY[$x]['limit-at'];
+			$arrayResponse[] = array(
+				"mensaje" => "Exitoso",
+				"nombre" => $name,
+				"Plan" => $plan,
+				"comment" => $comment
+			);
 		}
 	}else{ // si no hay ningun binding
 		$arrayResponse[] = array("status" => "error", "mensaje" => "No existen registros con este ID");

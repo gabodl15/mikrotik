@@ -74,8 +74,8 @@ $API->debug = false;
                     <!-- START WIDGETS -->
                     <div class="row">
                        <div class="col-md-8">
-                       <!-- <h2>Bienvenido <?=$nombre?></h2> -->
-                       <!-- <h3>esta logueado en mkt <?=$nombre_mkt?></h3> -->
+                       <!-- <h2>Bienvenido </h2> -->
+                       <!-- <h3>esta logueado en mkt </h3> -->
                            <div class="panel panel-default">
                                <div class="panel-heading">
                                    <div class="panel-title-box">
@@ -268,10 +268,12 @@ $API->debug = false;
                         </div>
                         <div class="col-md-4">
                             <!-- START WIDGET CLOCK -->
+                          	<!-- QUITAR RELOJ
                             <div class="widget widget-success widget-padding-sm">
                                 <div class="widget-big-int plugin-clock">00:00</div>
                                 <div class="widget-subtitle plugin-date">Enviando datos...</div>
                             </div>
+							-->
 
 
                             <div class="panel panel-default">
@@ -281,24 +283,26 @@ $API->debug = false;
 
                                   $API->write("/ppp/secret/getall",true);
                                   $READ = $API->read(false);
-                                  $total_clientes_ppp = $API->parse_response($READ);
-                                  $result = getSecret($total_clientes_ppp);
+                                  $ARRAY = $API->parse_response($READ);
+                                  $result = getSecret($ARRAY);
+                                  extract($result);
                               ?>
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Clientes Activos
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? $result[1] : $result; ?></span>
+                                      <b>Clientes Activos</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_enable?></span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Clientes Cortados
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? (count($total_clientes_ppp) - $result[1]) : $result; ?></span>
+                                      <b>Clientes Cortados</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_suspended?></span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      Total Megas Vendidos
-                                      <span class="badge badge-primary badge-pill"><?php print is_array($result) ? $result[0] : $result; ?></span>
+                                      <b>Total Megas Vendidos</b>
+                                      <span class="badge badge-primary badge-pill"><?php print $client_megabytes?></span>
                                     </li>
                                 </ul>
                             </div>
+
                             <!-- END WIDGET CLOCK -->
                         </div>
 
@@ -354,29 +358,10 @@ $API->debug = false;
         <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
 
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        <script type="text/javascript" src="js/plugins/scrolltotop/scrolltopcontrol.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
-        <script type="text/javascript" src="js/plugins/morris/morris.min.js"></script> -->
-        <!-- <script type="text/javascript" src="js/plugins/rickshaw/d3.v3.js"></script>
-        <script type="text/javascript" src="js/plugins/rickshaw/rickshaw.min.js"></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
-        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
-        <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="js/plugins/daterangepicker/daterangepicker.js"></script> -->
-        <!-- END THIS PAGE PLUGINS-->
-
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="js/plugins.js"></script>
         <script type="text/javascript" src="js/actions.js"></script>
 
-        <!-- <script type="text/javascript" src="js/demo_dashboard.js"></script> -->
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
     </body>

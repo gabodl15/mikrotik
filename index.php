@@ -23,7 +23,7 @@ include("includes/variables.php");
 
             <div class="login-box animated fadeInDown">
                 <!--<div class="login-logo"></div>-->
-                <div class="login-body" id="caja-form">
+                <div class="login-body" id="caja-form"><?php  print $id_mkt; ?>
                     <div class="login-title"><strong>Bienvenido</strong>, Por favor ingrese</div>
                     <div class="login-title" id="info"></div>
                     <form action="action/control.php" class="form-horizontal" method="post" id="Validacion">
@@ -108,6 +108,6 @@ include("includes/variables.php");
                          return false;
                     });
                 });
-</script>
+            </script>
     </body>
 </html>

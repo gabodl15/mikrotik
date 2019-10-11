@@ -1,6 +1,6 @@
 .htaccess
-assets/fileupload/files/.htaccess
-includes/variables.php
-layouts/menu.php
-templates/
+/includes/variables.php
 
+templates/
+.htaccess
+.idea

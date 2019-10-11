@@ -64,32 +64,20 @@ $API->debug = false;
                 <ul class="breadcrumb">
                     <li><a href="#">Inicio</a></li>
                     <li class="active">Panel</li>
-                    <li class="">Bienvenido <?=$nombre?></li>
+                    <li class="">Bienvenido <?=$nombre;?></li>
                 </ul>
                 <!-- END BREADCRUMB -->
 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
 
-                    <?php if ($API->connect(IP_MIKROTIK, USER, PASS)){ ;?>
-                    <div class="row">
-                        <div class="col-md-8">
-                          <?php
-                              $mega; //Esta variable la usare para tomar el total de los megas de todos los clientes
-                              $API->write("/ppp/secret/getall",true);
-                              $READ = $API->read(false);
-                              $ARRAY = $API->parse_response($READ);
-                              $result = getSecret($ARRAY);
-
-                              print $result;
-                          ?>
-                        </div>
-                    </div>
                     <?php
-                        }
-                        else{
-                          print "no logueado";
-                        }
+
+                    ?>
+
+                    </div>
+
+                    <?php
 
                     ?>
 

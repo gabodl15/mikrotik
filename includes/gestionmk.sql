@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`ID`, `Nombre`, `Identificacion`, `Password`, `Email`, `Telefono`, `Nivel_Acceso`) VALUES
-(1, 'Joan Salomon Nieto Lopez', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'jnieto@wificolombia.net', '1', '1');
+(1, 'Gabriel Eduardo Díaz Lugo', 'Gabriel', 'eecfe653cf1809fd3dfc40151f3b08b37ae6592e', 'gabodl15@gmail.com', '1', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
