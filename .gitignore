@@ -1,6 +1,6 @@
 .htaccess
 /includes/variables.php
-
+/layouts/menu.php
 templates/
 .htaccess
 .idea
