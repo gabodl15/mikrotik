@@ -1,6 +1,7 @@
 .htaccess
 
 /layouts/menu.php
+internautas.sql
 templates/
 .htaccess
 .idea
