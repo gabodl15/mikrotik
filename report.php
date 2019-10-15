@@ -117,7 +117,7 @@ $API->debug = false;
                             Launch demo modal
                           </button> -->
 
-                          <!-- MODAL -->
+<!-- ////////////////////////// MODAL ///////////////////////////////// -->
                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -127,7 +127,8 @@ $API->debug = false;
                                 </div>
                                 <div class="modal-body">
 
-                                  <form class="" action="index.html" method="post">
+        <!-- //////////////////////////////////// INICIO DE FROMLARIO DENTRO DEL MUDAL /////////////////////////////////////////// -->
+                                  <form id="form-modal" class="" action="../prueba.php" method="post">
 
                                     <div class="form-horizontal">
                                         <div class="form-group">
@@ -155,7 +156,7 @@ $API->debug = false;
                                                                   $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
                                                                   echo $datos_pppoe;
                                                                   //var_dump($users);
-                                                              } 
+                                                              }
                                                               }else{ // si no hay ningun binding
                                                                   echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
                                                               }
@@ -168,28 +169,21 @@ $API->debug = false;
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Comentarios</label>
                                             <div class="col-md-8">
-                                                <textarea name="comentarios" class="form-control" style="resize: none"></textarea>
+                                                <textarea id="text-comment" name="comentarios" class="form-control" style="resize: none"></textarea>
                                             </div>
                                         </div>
-                                   <!-- <div class="form-group">
-                                            <label class="col-md-4 control-label">Identificaci&oacute;n</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="no_id" id="no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
-                                            </div>
-                                        </div> -->
                                     </div>
-
-
                                   </form>
+      <!-- ///////////////////////////// FIN DEL FROMULARIO DENTRO DEL MODAL ///////////////////////////////////////// -->
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                  <button type="submit" id="bt-submit" class="btn btn-primary">Save changes</button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <!-- /MODAL -->
+<!-- /////////////////////////////////////// /MODAL ////////////////////////////////////////////// -->
 
 
 
@@ -241,23 +235,10 @@ $API->debug = false;
         <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
 
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        <script type="text/javascript" src="js/plugins/scrolltotop/scrolltopcontrol.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
-        <script type="text/javascript" src="js/plugins/morris/morris.min.js"></script> -->
-        <!-- <script type="text/javascript" src="js/plugins/rickshaw/d3.v3.js"></script>
-        <script type="text/javascript" src="js/plugins/rickshaw/rickshaw.min.js"></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
-        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
-        <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="js/plugins/daterangepicker/daterangepicker.js"></script> -->
-        <!-- END THIS PAGE PLUGINS-->
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-select.js"></script>
+        <script type="text/javascript" src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="js/plugins.js"></script>
@@ -265,6 +246,32 @@ $API->debug = false;
 
         <!-- <script type="text/javascript" src="js/demo_dashboard.js"></script> -->
         <!-- END TEMPLATE -->
+
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+
+                $('#bt-submit').click(function() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../prueba.php",
+                        data: $("#form-modal").serialize(),
+                        success: function(data){
+                          console.log(data[0].id);
+                          console.log(data[0].rp);
+                          $("#text-comment").val("");
+                          $('#myModal').modal('toggle');
+
+                        },
+                        error: function(data){
+                            console.log("error:",data);
+                        }
+                    });
+
+                    return false;
+                });
+            });
+        </script>
     <!-- END SCRIPTS -->
     </body>
 </html>

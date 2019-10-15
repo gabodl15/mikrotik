@@ -318,7 +318,7 @@ $API->debug = false;
                           $("#Edicion_ppp").slideUp();
                       },
                       error: function(data){
-                          console.log("error"+data)
+                          console.log("error"+data);
                       }
                   });
                   return false;
