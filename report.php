@@ -39,7 +39,7 @@ $API->debug = false;
             <?= $menu; ?>
 
             <!-- PAGE CONTENT -->
-            <div class="page-content">
+            <div id="page-content" class="page-content">
 
                 <!-- START X-NAVIGATION VERTICAL -->
                 <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
@@ -82,14 +82,15 @@ $API->debug = false;
                             $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
 
                             //$query = mysqli_query($conexiondb,"INSERT INTO reports(id_client, report) VALUES('1','Esto es una prueba')");
-                            $query = mysqli_query($conexiondb, "SELECT name_client, report FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
+                            $query = mysqli_query($conexiondb, "SELECT name_client, report, fecha FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
 
                             // var_dump($query);
                             if ($query->num_rows > 0) {
                                 //$datos = $query->fetch_assoc();
                                 while ($datos = $query->fetch_assoc()) {
+                                    $new_date = date("d-m-Y", strtotime($datos['fecha']));
                                     print "<div class='panel panel-default'>";
-                                    print "<div class='panel-heading'>".$datos['name_client']."</div>";
+                                    print "<div class='panel-heading'><strong>".strtoupper($datos['name_client'])."</strong><spam> - ".$new_date."</spam><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                                     print "<div class='panel-body'>".$datos['report']."</div>";
                                     print "</div>";
                                 }
@@ -99,6 +100,7 @@ $API->debug = false;
                               print "<div class='panel-body'>...</div>";
                               print "</div>";
                             }
+                            mysqli_close($conexiondb);
                             ?>
 
                         </div>
@@ -112,23 +114,18 @@ $API->debug = false;
                           </div>
                           <!-- PLUSS -->
 
-                          <!-- Button trigger modal -->
-                          <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                            Launch demo modal
-                          </button> -->
-
 <!-- ////////////////////////// MODAL ///////////////////////////////// -->
                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                  <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                  <h4 class="modal-title" id="myModalLabel">Reporte</h4>
                                 </div>
                                 <div class="modal-body">
 
         <!-- //////////////////////////////////// INICIO DE FROMLARIO DENTRO DEL MUDAL /////////////////////////////////////////// -->
-                                  <form id="form-modal" class="" action="../prueba.php" method="post">
+                                  <form id="form-modal" class="" action="action/Proceso_reportes.php" method="post">
 
                                     <div class="form-horizontal">
                                         <div class="form-group">
@@ -139,28 +136,24 @@ $API->debug = false;
                                                     <option value="" selected disabled hidden>Seleccione</option>
         		                                        <!-- Traemos los Usuarios de los Queues y los imprimimos en cada option -->
         		                                        <?php
-                                                      if($API->connect(IP_MIKROTIK, USER, PASS)) {
-                                                          $API->write("/ppp/secret/getall",true);
-                                                          $READ = $API->read(false);
-                                                          $users = $API->parse_response($READ);
 
-                                                          foreach ($users as $key => $row) {
-                                                              $aux[$key] = $row['name'];
-                                                          }
-                                                          array_multisort($aux, SORT_ASC, $users);
+                                                        $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+                                                        $query = mysqli_query($conexiondb, "SELECT id, name_client FROM clients;");
 
-                                                          if(count($users)>0){   // si hay mas de 1 queue.
-                                                              for($x=0;$x<count($users);$x++){
-                                                                  $name = sanear_string($users[$x]['name']);
-                                                                  $id_umkt = ($users[$x]['.id']);
-                                                                  $datos_pppoe = "<option value="."$id_umkt".">".$name."</option>";
-                                                                  echo $datos_pppoe;
-                                                                  //var_dump($users);
-                                                              }
-                                                              }else{ // si no hay ningun binding
-                                                                  echo "<option value=''>No hay ningún usuario en Queue Simple</option>";
+                                                        // var_dump($query);
+                                                        if ($query->num_rows > 0) {
+                                                            //$datos = $query->fetch_assoc();
+                                                            while ($datos = $query->fetch_assoc()) {
+                                                                //print "<div class='panel panel-default'>";
+                                                                $id_client_ = $datos['id'];
+                                                                $name_client_ = $datos['name_client'];
+                                                                //$report_client_ = $datos['report'];
+                                                                $option = "<option value="."$id_client_".">"."$name_client_"."</option>";
+                                                                echo $option;
+
                                                               }
                                                         }
+                                                        mysqli_close($conexiondb);
                                                     ?>
         		                                        <!-- -->
                                                 </select>
@@ -252,16 +245,18 @@ $API->debug = false;
 
                 $('#bt-submit').click(function() {
 
+
+                    console.log($("#form-modal").serialize());
                     $.ajax({
                         type: "POST",
-                        url: "../prueba.php",
+                        url: "action/Proceso_reportes.php",
                         data: $("#form-modal").serialize(),
                         success: function(data){
-                          console.log(data[0].id);
-                          console.log(data[0].rp);
+
                           $("#text-comment").val("");
                           $('#myModal').modal('toggle');
 
+                          location.reload();
                         },
                         error: function(data){
                             console.log("error:",data);

@@ -303,6 +303,50 @@ $API->debug = false;
                                 </ul>
                             </div>
 
+
+<!-- ////////////////////////////////////// COMPARACION //////////////////////////////////////////// -->
+                            <div class="panel panel-default">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                      <b>Mikrotik | Base de Datos</b>
+                                      <span class="badge badge-success badge-pill">OK</span>
+                                    </li> <!--
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                      <b>Clientes Cortados</b>
+                                      <span class="badge badge-primary badge-pill"> </span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                      <b>Total Megas Vendidos</b>
+                                      <span class="badge badge-primary badge-pill"> </span>
+                                    </li> -->
+                                    <?php
+
+                                        echo $client_enable;
+                                        $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+                                        $query = mysqli_query($conexiondb, "SELECT id, name_client FROM clients;");
+
+                                        // var_dump($query);
+                                        if ($query->num_rows > 0) {
+                                            //$datos = $query->fetch_assoc();
+                                            while ($datos = $query->fetch_assoc()) {
+                                                //print "<div class='panel panel-default'>";
+                                                $id_client_ = $datos['id'];
+                                                $name_client_ = $datos['name_client'];
+                                                //$report_client_ = $datos['report'];
+                                                $option = "<option value="."$id_client_".">"."$name_client_"."</option>";
+                                                // echo $option;
+
+                                              }
+                                        }
+                                        mysqli_close($conexiondb);
+                                    ?>
+                                </ul>
+                            </div>
+<!-- ////////////////////////////////////// /COMPARACION /////////////////////////////////////////// -->
+
+
+
+
                             <!-- END WIDGET CLOCK -->
                         </div>
 
