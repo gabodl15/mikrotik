@@ -279,21 +279,13 @@ $API->debug = false;
                 		data: "Usuario="+dato_usuario, //
                 		dataType: "JSON",
                 		success: function(data){
-                    		  $("#Get_Form").fadeIn();
-                          $("#Info_Form").empty();
+                        var plan_actual = data[0].Plan;
+                    		$("#Get_Form").fadeIn();
+                        $("#Info_Form").empty();
+                       	$("#actual_user").val(data[0].nombre)
+                       	$("#comment_actual").val(data[0].comment); //Traemos Solo valor de descarga
+                        $("#plan_actual").val(plan_actual);
 
-
-                       		$("#actual_user").val(data[0].nombre);
-                       		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
-                       		//var ip_actual = (data[0].IP).replace('/32',''); //Remplazamos la mascara 32 para solo imprimir la IP
-                       		//var descarga = Math.round((arr[1]/1024));
-                       		var plan_actual = data[0].Plan;
-                          //var enable = data[0].status;
-                       		$("#comment_actual").val(data[0].comment); //Traemos Solo valor de descarga
-                       		//$("#plan_actual").val(canal);
-                          $("#plan_actual").val(plan_actual);
-                       		//$("#comment").val(enable);
-                       		//$("#ID_Usuario_MKT").val(dato_usuario);
                     },
                     beforeSend: function(){
                         $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Enviando datos, por favor espere');
@@ -309,7 +301,6 @@ $API->debug = false;
                   $.ajax({
                       type: "POST",
                       url: "../action/Procesos_EDIT_PPPoE.php",
-                      //data: $("#Editar_ppp").serialize() +"&user_mkt=" +$("#actual_user").val(),
                       data: $("#Editar_ppp").serialize() +"&id_user_mkt="+$('#Usuario').val() +"&secret_user_mkt="+$('#actual_user').val() +"&comment="+$("#new-comment").val(),
                       success: function(data){
                           $("#Editar_Valores").prop('checked', false);
@@ -318,7 +309,7 @@ $API->debug = false;
                           $("#Usuario").val("");
                       },
                       error: function(data){
-                          console.log("error"+data);
+                          console.log("error:",data);
                       }
                   });
                   return false;
