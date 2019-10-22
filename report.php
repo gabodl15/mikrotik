@@ -21,9 +21,6 @@ $API->debug = false;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="<?php echo $Autor ?>">
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="../morris.js-0.5.1./libs/morris.min.js" charset="utf-8"></script> -->
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <!-- END META SECTION -->
@@ -75,22 +72,16 @@ $API->debug = false;
 
                             <?php
 
-                            define('DB_HOST', '127.0.0.1');
-                            define('DB_USER', 'internautas');
-                            define('DB_PASS', 'int65');
-                            define('DB_DB', 'mikrotiks');
                             $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
 
-                            //$query = mysqli_query($conexiondb,"INSERT INTO reports(id_client, report) VALUES('1','Esto es una prueba')");
-                            $query = mysqli_query($conexiondb, "SELECT name_client, report, fecha FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
+                            $query = mysqli_query($conexiondb, "SELECT id_client, name_client, report, fecha FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
 
-                            // var_dump($query);
                             if ($query->num_rows > 0) {
                                 //$datos = $query->fetch_assoc();
                                 while ($datos = $query->fetch_assoc()) {
                                     $new_date = date("d-m-Y", strtotime($datos['fecha']));
-                                    print "<div class='panel panel-default'>";
-                                    print "<div class='panel-heading'><strong>".strtoupper($datos['name_client'])."</strong><spam> - ".$new_date."</spam><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                                    print "<div class='panel panel-default' id='".$datos['id_client']."'>";
+                                    print "<div class='panel-heading'><strong>".strtoupper($datos['name_client'])."</strong><spam> - ".$new_date."</spam><button type='button' onClick=\"finalice(jQuery(this));\" class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                                     print "<div class='panel-body'>".$datos['report']."</div>";
                                     print "</div>";
                                 }
@@ -140,14 +131,13 @@ $API->debug = false;
                                                         $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
                                                         $query = mysqli_query($conexiondb, "SELECT id, name_client FROM clients;");
 
-                                                        // var_dump($query);
+
                                                         if ($query->num_rows > 0) {
-                                                            //$datos = $query->fetch_assoc();
+
                                                             while ($datos = $query->fetch_assoc()) {
-                                                                //print "<div class='panel panel-default'>";
+
                                                                 $id_client_ = $datos['id'];
                                                                 $name_client_ = $datos['name_client'];
-                                                                //$report_client_ = $datos['report'];
                                                                 $option = "<option value="."$id_client_".">"."$name_client_"."</option>";
                                                                 echo $option;
 
@@ -220,7 +210,6 @@ $API->debug = false;
     <!-- START SCRIPTS -->
 
         <!-- Script Grafica -->
-        <!-- <script src="js/graphs.js" charset="utf-8"></script> -->
 
         <!-- START PLUGINS -->
         <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
@@ -241,6 +230,7 @@ $API->debug = false;
         <!-- END TEMPLATE -->
 
         <script type="text/javascript">
+
             jQuery(document).ready(function() {
 
                 $('#bt-submit').click(function() {
@@ -266,6 +256,12 @@ $API->debug = false;
                     return false;
                 });
             });
+
+            function finalice(boton){
+              id = jQuery(boton).parent().parent().attr('id');
+              alert(id);
+            }
+
         </script>
     <!-- END SCRIPTS -->
     </body>

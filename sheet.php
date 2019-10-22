@@ -16,7 +16,7 @@ $API->debug = false;
     <head>
         <!-- META SECTION -->
         <meta name="description" content="SISTEMA DE GESTION - WIFICOLOMBIA">
-        <title>Sistema de Gesti&oacute;n <?php echo $Identidad_Mikrotik ;?></title>
+        <title>Sistema de Gesti&oacute;n <?php echo $xdentidad_Mikrotik ;?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,12 +70,67 @@ $API->debug = false;
 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
+                    <div class="row">
+                        <div class="col-md-2">
+                          <?php
+                          $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+                          $query = mysqli_query($conexiondb, "SELECT name_client FROM clients where name_client NOT LIKE 'prueba%';");
+                          // var_dump($query);
+                          // $data = mysql_fetch_assoc($query);
+                          // echo $data;
+                          // var_dump($data);
 
-                    <?php
+                          if ($query->num_rows > 0) {
+                              //$datos = $query->fetch_assoc();
+                              while ($datos = $query->fetch_assoc()) {
+                                  //print "<div class='panel panel-default'>";
+                                  // $xd_client_ = $datos['id'];
+                                  // $name_client_ = $datos['name_client'];
+                                  //$report_client_ = $datos['report'];
+                                  // $option = "<option value="."$xd_client_".">"."$name_client_"."</option>";
+                                  // echo $option;
+                                  echo $datos['name_client']."<br>";
+                                }
+                          }
+                          mysqli_close($conexiondb);
+                          ?>
+                        </div>
+                        <div class="col-md-4">
+                          <?php
+                          if ($API->connect(IP_MIKROTIK, USER, PASS)) {
+                             $API->write("/ppp/secret/getall",true);
+                             $READ = $API->read(false);
+                             $ARRAY = $API->parse_response($READ);
 
-                    ?>
+                             foreach ($ARRAY as $key => $row) {
+                                 $aux[$key] = $row['name'];
+                             }
+                             array_multisort($aux, SORT_ASC, $ARRAY);
 
+                             if(count($ARRAY)>0){   // si hay mas de 1 queue.
+
+                                  for($x=0;$x<count($ARRAY);$x++){
+
+                                      if ($ARRAY[$x]['disabled'] == "false"  && $ARRAY[$x]['profile'] !== "default") {
+                                        // code...
+                                        $name=sanear_string($ARRAY[$x]['name']);
+                                        echo $name."<br>";
+                                      }
+
+                                  }
+
+
+                             }else{ // si no hay ningun binding
+                                 echo "No hay ningun IP-Bindings. //<br/>";
+                              }
+                          }
+                                 //var_dump($ARRAY);
+                             ?>
+                        </div>
                     </div>
+
+
+                </div>
 
                     <?php
 

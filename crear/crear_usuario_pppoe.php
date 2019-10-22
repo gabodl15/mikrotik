@@ -115,12 +115,6 @@ $API->debug = false;
                                             <input type="date" id="date" name="date" required>
                                         </div>
                                     </div>
-                               <!-- <div class="form-group">
-                                        <label class="col-md-4 control-label">Identificaci&oacute;n</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="no_id" id="no_id" class="form-control" placeholder="Ingrese n&uacute;mero identificaci&oacute;n">
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -145,6 +139,12 @@ $API->debug = false;
                                             <input type="text" class="form-control" name="ipalias" id="ipalias" placeholder="10.10.10.*" required>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Monto</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" name="monto" id="monto" placeholder="45$" required>
+                                        </div>
+                                    </div>
                                   	<div class="form-group">
                                         <label class="col-md-4 control-label">Plan</label>
                                         <div class="col-md-8">
@@ -156,11 +156,9 @@ $API->debug = false;
                                                 if(count($ARRAY)>0){   // si hay mas de 1 queue.
                                                     for($x=0;$x<count($ARRAY);$x++){
                                                         if($ARRAY[$x]['name'] == 'default' || $ARRAY[$x]['name'] == 'default-encryption' || $ARRAY[$x]['name'] == 'profile1'){
-                                                        //$precio = $ARRAY[$x]['price'];
                                                         continue;
                                                         }
                                                         $plan = $ARRAY[$x]['name'];
-                                                        //$price = $ARRAY[$x]['price'];
                                                         $datos_planes = '<option value="'.$plan.'">'.$plan.'</option>';
                                                         echo $datos_planes;
                                                     }//FIN DEL IF
@@ -190,11 +188,10 @@ $API->debug = false;
             </div>
             <!-- END PAGE CONTENT -->
             <?php
-    }else{
-        echo "No hay conexion";
-    }
-
-?>
+              }else{
+                  echo "No hay conexion";
+              }
+            ?>
         </div>
         <!-- END PAGE CONTAINER -->
         <!-- MESSAGE BOX-->
@@ -245,12 +242,9 @@ $API->debug = false;
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 $('#no_id').blur(function(){
-                    //var pass = $('#no_id').val().slice(-4);
                     var user_name = $('#name').val();
                     var user = user_name.replace(/\s+/g, '');
                     var user_id = $('#no_id').val();
-                    //$('#password').val($('#no_id').val());
-                    //$('#user').val(user);
                 });
                 $("#Crear_Cliente_Userman").submit(function(){
                     $.ajax({

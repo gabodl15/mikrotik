@@ -24,6 +24,12 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
       $API->write("=profile=".$plan, true);
       $READ = $API->read(false);
       //$ARRAY = $API->parse_response($READ);
+
+      //GUARDANDO LOS CAMBIOS EN BASE DE DATOS
+      $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+
+      $query = mysqli_query($conexiondb, "UPDATE clients SET profile = '$plan', comment_client = '$comment' where name_client = '$secret' ;");
+      mysqli_close($conexiondb);
       }
 
       //ELIMINANDO AL USUARIO DE ACTIVE CONECTION PARA QUE SE APLIQUE EL CAMBIO QUE SE REALICE EN PROFILE

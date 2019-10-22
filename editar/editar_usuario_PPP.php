@@ -247,8 +247,6 @@ $API->debug = false;
         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS -->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
 
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap-file-input.js"></script>
@@ -282,7 +280,8 @@ $API->debug = false;
                 		dataType: "JSON",
                 		success: function(data){
                     		  $("#Get_Form").fadeIn();
-                   		    $("#Info_Form").hide();
+                          $("#Info_Form").empty();
+
 
                        		$("#actual_user").val(data[0].nombre);
                        		//var arr = (data[0].BW).split('/'); //Separamos Carga y Descarga
@@ -316,6 +315,7 @@ $API->debug = false;
                           $("#Editar_Valores").prop('checked', false);
                           $("#Get_Form").slideUp();
                           $("#Edicion_ppp").slideUp();
+                          $("#Usuario").val("");
                       },
                       error: function(data){
                           console.log("error"+data);

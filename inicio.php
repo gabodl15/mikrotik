@@ -21,9 +21,6 @@ $API->debug = false;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="<?php echo $Autor ?>">
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="../morris.js-0.5.1./libs/morris.min.js" charset="utf-8"></script> -->
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <!-- END META SECTION -->
@@ -74,8 +71,6 @@ $API->debug = false;
                     <!-- START WIDGETS -->
                     <div class="row">
                        <div class="col-md-8">
-                       <!-- <h2>Bienvenido </h2> -->
-                       <!-- <h3>esta logueado en mkt </h3> -->
                            <div class="panel panel-default">
                                <div class="panel-heading">
                                    <div class="panel-title-box">
@@ -267,15 +262,6 @@ $API->debug = false;
 
                         </div>
                         <div class="col-md-4">
-                            <!-- START WIDGET CLOCK -->
-                          	<!-- QUITAR RELOJ
-                            <div class="widget widget-success widget-padding-sm">
-                                <div class="widget-big-int plugin-clock">00:00</div>
-                                <div class="widget-subtitle plugin-date">Enviando datos...</div>
-                            </div>
-							-->
-
-
                             <div class="panel panel-default">
                               <?php
                                   $clientes_activos;
@@ -307,39 +293,34 @@ $API->debug = false;
 <!-- ////////////////////////////////////// COMPARACION //////////////////////////////////////////// -->
                             <div class="panel panel-default">
                                 <ul class="list-group">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      <b>Mikrotik | Base de Datos</b>
-                                      <span class="badge badge-success badge-pill">OK</span>
-                                    </li> <!--
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      <b>Clientes Cortados</b>
-                                      <span class="badge badge-primary badge-pill"> </span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      <b>Total Megas Vendidos</b>
-                                      <span class="badge badge-primary badge-pill"> </span>
-                                    </li> -->
+
                                     <?php
 
-                                        echo $client_enable;
                                         $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
-                                        $query = mysqli_query($conexiondb, "SELECT id, name_client FROM clients;");
+                                        $query = mysqli_query($conexiondb, "SELECT count(*) FROM clients WHERE comment_client NOT LIKE '%CONVENIO%' AND profile != 'default' AND profile != 'CORTADOS' AND name_client NOT LIKE 'prueba%';");
 
-                                        // var_dump($query);
+                                        $data_base_count = "";
                                         if ($query->num_rows > 0) {
                                             //$datos = $query->fetch_assoc();
                                             while ($datos = $query->fetch_assoc()) {
-                                                //print "<div class='panel panel-default'>";
-                                                $id_client_ = $datos['id'];
-                                                $name_client_ = $datos['name_client'];
-                                                //$report_client_ = $datos['report'];
-                                                $option = "<option value="."$id_client_".">"."$name_client_"."</option>";
-                                                // echo $option;
-
+                                                $data_base_count = $datos['count(*)'];
+                                                //echo $data_base_count;
                                               }
                                         }
                                         mysqli_close($conexiondb);
                                     ?>
+
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                      <b>Mikrotik | Base de Datos</b>
+                                      <?php
+                                      if ($data_base_count == $client_enable) {
+                                        echo '<span class="badge badge-success badge-pill">OK</span>';
+                                      }else{
+                                        echo '<span class="badge badge-danger badge-pill">WRONG</span>';
+                                      }
+                                      ?>
+
+                                    </li>
                                 </ul>
                             </div>
 <!-- ////////////////////////////////////// /COMPARACION /////////////////////////////////////////// -->
@@ -394,7 +375,6 @@ $API->debug = false;
     <!-- START SCRIPTS -->
 
         <!-- Script Grafica -->
-        <!-- <script src="js/graphs.js" charset="utf-8"></script> -->
 
         <!-- START PLUGINS -->
         <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
