@@ -291,7 +291,7 @@ $API->debug = false;
                         $("#Info_Form").html('<i class="fa fa-spinner fa-spin"></i> Enviando datos, por favor espere');
                     },
                       error: function(data){
-                          console.log("error"+data);
+                          console.log("error:",data);
                     }
                   });
                 //Evitamos cambios en el formulario
