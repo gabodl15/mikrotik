@@ -7,7 +7,6 @@ sleep(1);
 require("../includes/variables.php");
 require('../functions/funciones.php');
 include("../action/security.php");
-include("../layouts/menu.php");
 require('../apimikrotik.php');
 $API = new routeros_api();
 $API->debug = false;
@@ -50,7 +49,7 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
                 $creado = "si";
                 if ($creado== "si") {
 
-                    $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);                    
+                    $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
                     $query = mysqli_query($conexiondb, "INSERT INTO clients(name_client, password_client, profile, comment_client) VALUES('$user', '$password', '$plan', '$info');");
                     mysqli_close($conexiondb);
 
