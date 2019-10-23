@@ -74,15 +74,21 @@ $API->debug = false;
 
                             $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
 
-                            $query = mysqli_query($conexiondb, "SELECT id_client, name_client, report, fecha FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
+                            $query = mysqli_query($conexiondb, "SELECT reports.id, name_client, report, fecha FROM clients, reports  WHERE reports.id_client = clients.id AND reports.resolved = 'no';");
 
                             if ($query->num_rows > 0) {
                                 //$datos = $query->fetch_assoc();
                                 while ($datos = $query->fetch_assoc()) {
                                     $new_date = date("d-m-Y", strtotime($datos['fecha']));
-                                    print "<div class='panel panel-default' id='".$datos['id_client']."'>";
-                                    print "<div class='panel-heading'><strong>".strtoupper($datos['name_client'])."</strong><spam> - ".$new_date."</spam><button type='button' onClick=\"finalice(jQuery(this));\" class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-                                    print "<div class='panel-body'>".$datos['report']."</div>";
+                                    print "<div class='panel panel-default' id='".$datos['id']."'>";
+                                    print     "<div class='panel-heading'>";
+                                    print         "<strong>".strtoupper($datos['name_client'])."</strong>";
+                                    print         "<spam> - ".$new_date."</spam>";
+                                    print         "<button type='button' onClick=\"finalice(jQuery(this));\" class='close' aria-label='Close'>";
+                                    print             "<span aria-hidden='true'>&times;</span>";
+                                    print         "</button>";
+                                    print     "</div>";
+                                    print     "<div class='panel-body'>".$datos['report']."</div>";
                                     print "</div>";
                                 }
                             }else {
@@ -235,8 +241,6 @@ $API->debug = false;
 
                 $('#bt-submit').click(function() {
 
-
-                    console.log($("#form-modal").serialize());
                     $.ajax({
                         type: "POST",
                         url: "action/Proceso_reportes.php",
@@ -259,7 +263,17 @@ $API->debug = false;
 
             function finalice(boton){
               id = jQuery(boton).parent().parent().attr('id');
-              alert(id);
+              var opcion = confirm("\t \t \t \t \t \t \t \t \t \t \t \t  CONFIRMAR QUE SE RESOLVIO EL CASO ");
+              if (opcion == true) {
+                  $.ajax({
+                      type: "POST",
+                      url: "action/delete_report.php",
+                      data: "id_report="+id,
+                      success: function(data){
+                          location.reload();
+                      }
+                  });
+              }
             }
 
         </script>
