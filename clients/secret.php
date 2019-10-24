@@ -125,7 +125,7 @@ $API->debug = false;
                                                     if($ARRAY[$x]['disabled'] == "false"){
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
-                                                        $datos_pppoe.= '<td>'.$name.'</td>';
+                                                        $datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#exampleModal">'.$name.'</a></td>';
                                                         //$datos_pppoe.= '<td>'.$ARRAY[$x]['password'].'</td>';
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
                                                         $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
@@ -146,6 +146,28 @@ $API->debug = false;
                                 </div>
                             </div>
                             <!-- END DATATABLE EXPORT -->
+
+
+
+
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <center><h5 class="modal-title" id="exampleModalLabel">Informacion del Usuario</h5></center>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p id="parrafo"></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">ok</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
 
 
                         </div>
@@ -192,15 +214,11 @@ $API->debug = false;
 
     <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
+
         <script type="text/javascript" src="../js/plugins/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../js/plugins/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
-
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        <script type="text/javascript" src="../js/plugins/scrolltotop/scrolltopcontrol.js"></script> -->
 
         <script type="text/javascript" src="../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/tableExport.js"></script>
@@ -209,16 +227,35 @@ $API->debug = false;
         <script type="text/javascript" src="../js/plugins/tableexport/jspdf/libs/sprintf.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/jspdf/jspdf.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/jspdf/libs/base64.js"></script>
-
-        <!-- <script type="text/javascript" src="../js/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="../js/plugins/daterangepicker/daterangepicker.js"></script> -->
         <!-- END THIS PAGE PLUGINS-->
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="../js/plugins.js"></script>
         <script type="text/javascript" src="../js/actions.js"></script>
 
-        <!-- <script type="text/javascript" src="../js/demo_dashboard.js"></script> -->
+        <script>
+            // $( "a" ).click(function( event ) {
+            //     event.preventDefault();
+            // });
+
+            function searchUser(user){
+              $("#parrafo").empty();
+              var id = jQuery(user).parent().attr('id');
+              $.ajax({
+                type: "POST",
+                url: "../action/get_clients_ppp.php",
+                data: "Usuario="+id,
+                success: function (data){
+                    console.log(id);
+                    $("#parrafo").append(data[0].comment);
+                },
+                complete: function(){
+                    console.log("despues del ajax");
+                }
+              });
+              return false;
+            }
+        </script>
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
     </body>
