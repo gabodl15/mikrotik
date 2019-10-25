@@ -139,7 +139,6 @@ $API->debug = false;
                                                 }else{ // si no hay ningun binding
                                                     echo "No hay ningun IP-Bindings. //<br/>";
                                                 }
-                                                //var_dump($ARRAY);
                                             ?>
                                         </tbody>
                                     </table>
@@ -147,18 +146,14 @@ $API->debug = false;
                                 </div>
                             </div>
                             <!-- END DATATABLE EXPORT -->
-
-
                         </div>
                         <!--Termina IF-->
                          <?php
                             }else{
                                 echo "No hay conexion";
                             }
-
                         ?>
                     </div>
-
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
             </div>
@@ -197,10 +192,6 @@ $API->debug = false;
         <script type="text/javascript" src="../js/plugins/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
-
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
 
         <script type="text/javascript" src="../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/tableExport.js"></script>

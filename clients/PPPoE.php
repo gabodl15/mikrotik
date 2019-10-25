@@ -75,8 +75,6 @@ $API->debug = false;
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
 
-
-
                     <div class="row">
                     <!-- empieza IF-->
                     <?php if ($API->connect(IP_MIKROTIK, USER, PASS)) { ;?>
@@ -142,15 +140,12 @@ $API->debug = false;
                                 </div>
                             </div>
                             <!-- END DATATABLE EXPORT -->
-
-
                         </div>
                         <!--Termina IF-->
                          <?php
                             }else{
                                 echo "No hay conexion";
                             }
-
                         ?>
                     </div>
 
@@ -193,8 +188,6 @@ $API->debug = false;
         <!-- END PLUGINS -->
 
         <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
 
         <script type="text/javascript" src="../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/tableExport.js"></script>

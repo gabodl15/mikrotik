@@ -226,9 +226,6 @@ $API->debug = false;
         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS -->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
-
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap-file-input.js"></script>
         <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap-select.js"></script>

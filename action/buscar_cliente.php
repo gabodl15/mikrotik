@@ -32,7 +32,6 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
 		   $API->write('/cancel',false);
 		   $READ = $API->read(false);
 		   $ARRAY = $API->parse_response($READ);
-		   //print_r($ARRAY);
 		   echo "<br />";
 		   	if(count($ARRAY)>0){
 		   		for($x=0;$x<=count($ARRAY);$x++){ //Clasifico errores del Log.

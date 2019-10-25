@@ -216,8 +216,6 @@ $API->debug = false;
         <!-- END PLUGINS -->
 
         <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='../js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
 
         <script type="text/javascript" src="../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../js/plugins/tableexport/tableExport.js"></script>

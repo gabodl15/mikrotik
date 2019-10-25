@@ -66,11 +66,11 @@ include("layouts/menu.php");
                 <!-- PAGE TITLE -->
                 <?php
                 $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASS,DB_DB);
-		/* comprobar la conexión */
-		$x = 1;
-		$ciclo_usuarios = ("SELECT * FROM usuarios WHERE Nivel_Acceso>=$nivel_acceso");
-		$res_ciclo= mysqli_query($mysqli, $ciclo_usuarios);
-		$numero_registros = mysqli_num_rows($res_ciclo);
+            		/* comprobar la conexión */
+            		$x = 1;
+            		$ciclo_usuarios = ("SELECT * FROM usuarios WHERE Nivel_Acceso>=$nivel_acceso");
+            		$res_ciclo= mysqli_query($mysqli, $ciclo_usuarios);
+            		$numero_registros = mysqli_num_rows($res_ciclo);
                 ?>
                 <div class="page-title">
                     <h2><span class="fa fa-users"></span> Libreta Virtual<small> <?=$numero_registros?> Registros Totales</small></h2>
@@ -82,21 +82,21 @@ include("layouts/menu.php");
 
                     <div class="row">
                     <?php
-		while ($result = mysqli_fetch_assoc($res_ciclo)){
-			$nivel_acceso = $result['Nivel_Acceso'];
-			if ($nivel_acceso=="1") {
-				$perfil = "NOC";
-			} elseif ($nivel_acceso=="2") {
-				$perfil = "Ejecutivo";
-			} elseif ($nivel_acceso=="3") {
-				$perfil = "Comercial";
-			} elseif ($nivel_acceso=="4") {
-				$perfil = "Tecnico";
-			}else{
-				$perfil = "Tercerizados";
-			}
-		?>
-		<div class="col-md-3">
+                    		while ($result = mysqli_fetch_assoc($res_ciclo)){
+                    			$nivel_acceso = $result['Nivel_Acceso'];
+                    			if ($nivel_acceso=="1") {
+                    				$perfil = "NOC";
+                    			} elseif ($nivel_acceso=="2") {
+                    				$perfil = "Ejecutivo";
+                    			} elseif ($nivel_acceso=="3") {
+                    				$perfil = "Comercial";
+                    			} elseif ($nivel_acceso=="4") {
+                    				$perfil = "Tecnico";
+                    			}else{
+                    				$perfil = "Tercerizados";
+                    			}
+                    ?>
+                    		<div class="col-md-3">
                             <!-- CONTACT ITEM -->
                             <div class="panel panel-default">
                                 <div class="panel-body profile">
@@ -120,11 +120,10 @@ include("layouts/menu.php");
                         		echo"</div>";
                         	}
                         	$x++;
-        		}
-        		/* cerrar la conexión */
-        		$mysqli->close();
-        		?>
-
+                      		}
+                      		/* cerrar la conexión */
+                      		$mysqli->close();
+                      	?>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -177,11 +176,6 @@ include("layouts/menu.php");
         <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
-
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script> -->
-        <!-- END THIS PAGE PLUGINS-->
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="js/plugins.js"></script>

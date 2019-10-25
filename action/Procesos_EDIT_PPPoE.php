@@ -23,7 +23,6 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
       $API->write("=comment=".$comment, false);
       $API->write("=profile=".$plan, true);
       $READ = $API->read(false);
-      //$ARRAY = $API->parse_response($READ);
 
       //GUARDANDO LOS CAMBIOS EN BASE DE DATOS
       $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);

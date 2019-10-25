@@ -70,10 +70,10 @@ include("layouts/menu.php");
                        <h2>Bienvenido <?=$nombre?></h2>
                        <form class="form-horizontal col-md-8" id="EnvioFormulario">
                         <div class="form-group">
-                                        <label class="col-md-4 control-label">Nombre o NIT Usuario</label>
-                                        <div class="col-md-8">
-                                            <input type="text" id="criterio" name="criterio" class="form-control" placeholder="">
-                                        </div>
+                            <label class="col-md-4 control-label">Nombre o NIT Usuario</label>
+                            <div class="col-md-8">
+                                <input type="text" id="criterio" name="criterio" class="form-control" placeholder="">
+                            </div>
                         </div>
                        </form>
                         </div>
@@ -95,8 +95,6 @@ include("layouts/menu.php");
                     	</div>
                     </div>
                     <!-- END WIDGETS -->
-
-
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
             </div>
@@ -136,20 +134,12 @@ include("layouts/menu.php");
         <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
 
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        <script type="text/javascript" src="js/plugins/scrolltotop/scrolltopcontrol.js"></script> -->
-
         <script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
         <script type="text/javascript" src="js/plugins/morris/morris.min.js"></script>
         <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
         <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
         <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
         <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script>
-
-        <!-- <script type="text/javascript" src="js/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="js/plugins/daterangepicker/daterangepicker.js"></script> -->
         <!-- END THIS PAGE PLUGINS-->
 
         <!-- START TEMPLATE -->

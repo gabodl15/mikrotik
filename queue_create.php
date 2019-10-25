@@ -45,10 +45,6 @@ $API->debug = false;
                     <input name="target" id="target" type="text">
                     <label for="Download">Velocidad Descarga</label>
                     <input name="Download" id="Download" type="text" class="Kbytes">
-                    <!--
-                    <label for="Upload">Velocidad Subida</label>
-                    <input name="Upload" id="Upload" type="text" class="Kbytes">
-                    -->
                     <label for="Segmento">Segmento</label>
                     <select name="Segmento">
                         <option value="8/8">Residencial</option>
@@ -65,35 +61,34 @@ $API->debug = false;
     }else{
         echo "No hay conexion";
     }
-
-?>
-</div>
-<!-- START PLUGINS -->
+    ?>
+            </div>
+            <!-- START PLUGINS -->
             <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
             <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
             <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
             <!-- END PLUGINS -->
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        $('.Kbytes').blur(function(){
-                if( this.value.indexOf('K') == -1 ){
-                this.value = this.value + 'K';
-                }
-            });
-        $("#Crear_Cliente_Queue").submit(function(){
-            $.ajax({
-               type: "POST",
-               url: 'action/Procesos_Queue.php',
-               data: $("#Crear_Cliente_Queue").serialize(), // Adjuntar los campos del formulario enviado.
-               success: function(data)
-               {
-                   alert(data); // Mostrar la respuestas del script PHP.
-                   $("#Crear_Cliente_Queue input").val("");
-               }
-            });
-            return false;
-        });
-    });
-</script>
-</body>
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    $('.Kbytes').blur(function(){
+                            if( this.value.indexOf('K') == -1 ){
+                            this.value = this.value + 'K';
+                            }
+                        });
+                    $("#Crear_Cliente_Queue").submit(function(){
+                        $.ajax({
+                           type: "POST",
+                           url: 'action/Procesos_Queue.php',
+                           data: $("#Crear_Cliente_Queue").serialize(), // Adjuntar los campos del formulario enviado.
+                           success: function(data)
+                           {
+                               alert(data); // Mostrar la respuestas del script PHP.
+                               $("#Crear_Cliente_Queue input").val("");
+                           }
+                        });
+                        return false;
+                    });
+                });
+            </script>
+    </body>
 </html>

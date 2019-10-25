@@ -21,11 +21,6 @@ $query = mysqli_query($conexiondb,"INSERT INTO reports(id_client, report, fecha)
 
 $arrayResponse[] = array('id' => $id_client, 'rp' => $report );
 
-// if ($query) {
-//   echo 1;
-// }else {
-//   echo 0;
-// }
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($arrayResponse);
 ?>
