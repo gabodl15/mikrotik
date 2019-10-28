@@ -160,19 +160,19 @@ $API->debug = false;
 		        <!-- Termina Formulario -->
 
                 <div class="row" id="Edicion_ppp"><!-- Inicia Fila Row Formulario De Edicion-->
-                <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
+                  <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
                     <h3 style="text-align: center; color:#13B21B">Formulario de edicion</h3>
                     <br>
                     <div class="col-md-5">
-                    <div class="form-horizontal">
-                            <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
+                      <div class="form-horizontal">
+                        <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
                         <div class="form-group">
                             <label class="col-md-4 control-label">Comentario</label>
                             <div class="col-md-8">
-                            <textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
+                                <textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
                             </div>
                         </div>
-                    </div>
+                      </div>
                     </div>
 
                     <div class="col-md-5">
@@ -203,16 +203,16 @@ $API->debug = false;
                     </div>
                 </form>
                 </div> <!-- Termina Formulario de edicion-->
-                </div>
-                <!-- END PAGE CONTENT WRAPPER -->
+              </div>
+              <!-- END PAGE CONTENT WRAPPER -->
             </div>
             <!-- END PAGE CONTENT -->
             <?php
-    }else{
-        echo "No hay conexion";
-    }
+                }else{
+                    echo "No hay conexion";
+                }
 
-?>
+            ?>
         </div>
         <!-- END PAGE CONTAINER -->
         <!-- MESSAGE BOX-->

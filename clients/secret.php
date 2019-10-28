@@ -238,8 +238,8 @@ $API->debug = false;
 
                     resultado.forEach(function (elemento, indice, array){
                         var bold = elemento.substring(0,elemento.indexOf(":")+1);
-                        var rest = elemento.substring(elemento.indexOf(":")+1, elemento.length -1) ;
-                        $("#parrafo").append("<p>" + "<strong>" + bold + "</strong>" + rest + "</p>");
+                        var rest = elemento.substring(elemento.indexOf(":")+1, elemento.length) ;
+                        $("#parrafo").append("<p>" + "<strong>" + bold + "</strong>" + "<span>" + rest + "</span>" + "</p>");
                     });
                 }
               });
