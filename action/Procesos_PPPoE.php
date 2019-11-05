@@ -24,7 +24,7 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
   	$datep = $_POST['date'];
   	$ipalias = $_POST['ipalias'];
     $monto = $_POST['monto'];
-    $comentarios = $_POST['comentarios'];
+    $comentarios = utf8_encode($_POST['comentarios']);
     $fecha_activacion = date('d-m-Y');
 
     $info = $dayp."/ "."[CLIENTE: $name]"."[RIF_CI: $identification]"."[DIRECCION: $address]"."[CORREO: $email]"."[TELF: $phone]"."[FECHA DE ACTIVACION: $fecha_activacion]"."[DIA DE PAGO: $datep]"."[MONTO: $monto]"."[COMENTARIO: $comentarios]"."[IP ALIAS: $ipalias]";

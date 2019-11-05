@@ -71,10 +71,21 @@ $API->debug = false;
                           <?php
                           $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
                           $query = mysqli_query($conexiondb, "SELECT name_client FROM clients where name_client NOT LIKE 'prueba%';");
+                          $new_array = [];
+                          if ($API->connect(IP_MIKROTIK, USER, PASS)) {
+                             $API->write("/ppp/secret/getall",true);
+                             $READ = $API->read(false);
+                             $ARRAY = $API->parse_response($READ);
+                          }
+                          $name_array = [];
+                          for ($i=0; $i < count($ARRAY); $i++) {
+                            array_push($name_array, $ARRAY[$i]['name']);
+                          }
 
                           if ($query->num_rows > 0) {
                               while ($datos = $query->fetch_assoc()) {
-                                  echo $datos['name_client']."<br>";
+                                  //echo $datos['name_client']."<br>";
+                                  array_push($new_array, $datos['name_client']);
                                 }
                           }
                           mysqli_close($conexiondb);
@@ -82,24 +93,14 @@ $API->debug = false;
                         </div>
                         <div class="col-md-4">
                           <?php
-                          if ($API->connect(IP_MIKROTIK, USER, PASS)) {
-                             $API->write("/ppp/secret/getall",true);
-                             $READ = $API->read(false);
-                             $ARRAY = $API->parse_response($READ);
 
-                             foreach ($ARRAY as $key => $row) {
-                                 $aux[$key] = $row['name'];
-                             }
-                             array_multisort($aux, SORT_ASC, $ARRAY);
-                             if(count($ARRAY)>0){   // si hay mas de 1 queue.
-                                  for($x=0;$x<count($ARRAY);$x++){
-                                      if ($ARRAY[$x]['disabled'] == "false"  && $ARRAY[$x]['profile'] !== "default") {
-                                        $name=sanear_string($ARRAY[$x]['name']);
-                                        echo $name."<br>";
-                                      }
-                                  }
-                             }else{ // si no hay ningun binding
-                                 echo "No hay ningun IP-Bindings. //<br/>";
+                          // var_dump($name_array);
+                          //var_dump($new_array);
+                          for ($i=0; $i < count($new_array); $i++) {
+                              if (in_array($new_array[$i], $name_array)) {
+                                  continue;
+                              }else{
+                                  echo $new_array[$i]."<br>";
                               }
                           }
                              ?>

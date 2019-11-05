@@ -180,14 +180,14 @@ $API->debug = false;
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Plan</label>
                                 <div class="col-md-8">
-                                    <select name="edit_Segmento" id="edit_Segmento" class="control-select select">
+                                    <select name="edit_Segment" id="edit_Segment" class="control-select select">
 
                                         <?php
                                             $API->write("/ppp/profile/getall", true);
                                             $READ = $API->read(false);
                                             $ARRAY = $API->parse_response($READ);
                                             for ($x = 0 ; $x < count($ARRAY) ; $x++){
-                                                echo "<option>".$ARRAY[$x]['name']."</option>";
+                                                echo "<option value='".$ARRAY[$x]['name']."'>".$ARRAY[$x]['name']."</option>";
                                             }
                                         ?>
                                     </select>
@@ -321,7 +321,7 @@ $API->debug = false;
           	  });
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
-
+                  //$("ul .dropdown-menu inner selectpicker").removeAtt("selected")
                   $("#new-comment").val($("#comment_actual").val());
 
                   if(check_editar){
@@ -329,6 +329,14 @@ $API->debug = false;
           		    }else{
           			       $("#Edicion_ppp").fadeOut();
           		    }
+
+                  console.log($("#edit_Segmento").val());
+                  console.log($("#plan_actual").val());
+
+                  //$("#edit_Segmento select").val($("#plan_actual").val());
+                  console.log($("ul .dropdown-menu .inner .selectpicker li"));
+
+                  //$("select #edit_Segmento option[value="+$("#plan_actual").val()+"]").attr('selected', 'selected');
           	  });
             	$('#Notificacion').click(function(){
             		$(this).fadeOut();
