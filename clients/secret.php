@@ -75,8 +75,6 @@ $API->debug = false;
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
 
-
-
                     <div class="row">
                     <!-- empieza IF-->
                     <?php if ($API->connect(IP_MIKROTIK, USER, PASS)) { ;?>
@@ -102,7 +100,6 @@ $API->debug = false;
                                             <li><a href="#" onClick ="$('#customers2').tableExport({type:'pdf',escape:'false'});"><img src='../img/icons/pdf.png' width="24"/> PDF</a></li>
                                         </ul>
                                     </div>
-
                                 </div>
                                 <div class="panel-body">
                                     <table id="customers2" class="table datatable">
@@ -125,12 +122,9 @@ $API->debug = false;
                                                     if($ARRAY[$x]['disabled'] == "false"){
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
-                                                        $datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#exampleModal">'.$name.'</a></td>';
-                                                        //$datos_pppoe.= '<td>'.$ARRAY[$x]['password'].'</td>';
+                                                        $datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#info_user_modal">'.$name.'</a></td>';
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
                                                         $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
-                                                        //$datos_pppoe.= '<td>'.$ARRAY[$x]['comment'].'</td>';
-                                                        //$datos_pppoe.= '<td>'.$ARRAY[$x]['uptime'].'</td>';
                                                         $datos_pppoe.= '</tr>';
                                                         echo $datos_pppoe;
                                                     }
@@ -138,7 +132,6 @@ $API->debug = false;
                                                 }else{ // si no hay ningun secret
                                                     echo "No hay ningun IP-Bindings. //<br/>";
                                                 }
-                                                //var_dump($ARRAY);
                                             ?>
                                         </tbody>
                                     </table>
@@ -146,19 +139,16 @@ $API->debug = false;
                                 </div>
                             </div>
                             <!-- END DATATABLE EXPORT -->
-
-
-
-
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="info_user_modal" tabindex="-1" role="dialog" aria-labelledby="info_user_modalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <center><h5 class="modal-title" id="exampleModalLabel">Informacion del Usuario</h5></center>
+                                    <center><h5 class="modal-title" id="info_user_modalLabel">Informacion del Usuario</h5></center>
                                   </div>
                                   <div class="modal-body">
-                                    <p id="parrafo"></p>
+                                    <div id="parrafo">
+                                        <!-- INSERCION JQUERY -->
+                                    </div>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">ok</button>
@@ -166,17 +156,12 @@ $API->debug = false;
                                 </div>
                               </div>
                             </div>
-
-
-
-
                         </div>
                         <!--Termina IF-->
                          <?php
                             }else{
                                 echo "No hay conexion";
                             }
-
                         ?>
                     </div>
 
@@ -234,9 +219,6 @@ $API->debug = false;
         <script type="text/javascript" src="../js/actions.js"></script>
 
         <script>
-            // $( "a" ).click(function( event ) {
-            //     event.preventDefault();
-            // });
 
             function searchUser(user){
               $("#parrafo").empty();
@@ -245,12 +227,20 @@ $API->debug = false;
                 type: "POST",
                 url: "../action/get_clients_ppp.php",
                 data: "Usuario="+id,
-                success: function (data){
-                    console.log(id);
-                    $("#parrafo").append(data[0].comment);
-                },
-                complete: function(){
-                    console.log("despues del ajax");
+                success: function (response){
+                    var comment = response[0].comment;
+                    var regex = /\[([^\]]+)]/g,
+                        match,
+                        resultado = [];
+                        while ((match = regex.exec(comment)) !== null) {
+                            resultado.push(match[1]);
+                        }
+
+                    resultado.forEach(function (elemento, indice, array){
+                        var bold = elemento.substring(0,elemento.indexOf(":")+1);
+                        var rest = elemento.substring(elemento.indexOf(":")+1, elemento.length) ;
+                        $("#parrafo").append("<p>" + "<strong>" + bold + "</strong>" + "<span>" + rest + "</span>" + "</p>");
+                    });
                 }
               });
               return false;

@@ -16,14 +16,13 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
     $user = $_POST["id_user_mkt"];
     $plan = $_POST["edit_Segmento"];
     $secret = $_POST["secret_user_mkt"];
-    $comment = $_POST["comment"];
+    $comment = utf8_encode($_POST["comment"]);
     if (isset($user)) {
       $API->write("/ppp/secret/set", false);
       $API->write("=.id=".$user, false);
       $API->write("=comment=".$comment, false);
       $API->write("=profile=".$plan, true);
       $READ = $API->read(false);
-      //$ARRAY = $API->parse_response($READ);
 
       //GUARDANDO LOS CAMBIOS EN BASE DE DATOS
       $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);

@@ -21,10 +21,6 @@ $API->debug = false;
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="<?php echo $Autor ?>">
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="../morris.js-0.5.1./libs/morris.min.js" charset="utf-8"></script> -->
-
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <!-- END META SECTION -->
 
@@ -75,21 +71,21 @@ $API->debug = false;
                           <?php
                           $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
                           $query = mysqli_query($conexiondb, "SELECT name_client FROM clients where name_client NOT LIKE 'prueba%';");
-                          // var_dump($query);
-                          // $data = mysql_fetch_assoc($query);
-                          // echo $data;
-                          // var_dump($data);
+                          $new_array = [];
+                          if ($API->connect(IP_MIKROTIK, USER, PASS)) {
+                             $API->write("/ppp/secret/getall",true);
+                             $READ = $API->read(false);
+                             $ARRAY = $API->parse_response($READ);
+                          }
+                          $name_array = [];
+                          for ($i=0; $i < count($ARRAY); $i++) {
+                            array_push($name_array, $ARRAY[$i]['name']);
+                          }
 
                           if ($query->num_rows > 0) {
-                              //$datos = $query->fetch_assoc();
                               while ($datos = $query->fetch_assoc()) {
-                                  //print "<div class='panel panel-default'>";
-                                  // $xd_client_ = $datos['id'];
-                                  // $name_client_ = $datos['name_client'];
-                                  //$report_client_ = $datos['report'];
-                                  // $option = "<option value="."$xd_client_".">"."$name_client_"."</option>";
-                                  // echo $option;
-                                  echo $datos['name_client']."<br>";
+                                  //echo $datos['name_client']."<br>";
+                                  array_push($new_array, $datos['name_client']);
                                 }
                           }
                           mysqli_close($conexiondb);
@@ -97,48 +93,20 @@ $API->debug = false;
                         </div>
                         <div class="col-md-4">
                           <?php
-                          if ($API->connect(IP_MIKROTIK, USER, PASS)) {
-                             $API->write("/ppp/secret/getall",true);
-                             $READ = $API->read(false);
-                             $ARRAY = $API->parse_response($READ);
 
-                             foreach ($ARRAY as $key => $row) {
-                                 $aux[$key] = $row['name'];
-                             }
-                             array_multisort($aux, SORT_ASC, $ARRAY);
-
-                             if(count($ARRAY)>0){   // si hay mas de 1 queue.
-
-                                  for($x=0;$x<count($ARRAY);$x++){
-
-                                      if ($ARRAY[$x]['disabled'] == "false"  && $ARRAY[$x]['profile'] !== "default") {
-                                        // code...
-                                        $name=sanear_string($ARRAY[$x]['name']);
-                                        echo $name."<br>";
-                                      }
-
-                                  }
-
-
-                             }else{ // si no hay ningun binding
-                                 echo "No hay ningun IP-Bindings. //<br/>";
+                          // var_dump($name_array);
+                          //var_dump($new_array);
+                          for ($i=0; $i < count($new_array); $i++) {
+                              if (in_array($new_array[$i], $name_array)) {
+                                  continue;
+                              }else{
+                                  echo $new_array[$i]."<br>";
                               }
                           }
-                                 //var_dump($ARRAY);
                              ?>
                         </div>
                     </div>
-
-
-                </div>
-
-                    <?php
-
-                    ?>
-
-
-
-
+                  </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
             </div>
@@ -173,38 +141,15 @@ $API->debug = false;
 
     <!-- START SCRIPTS -->
 
-        <!-- Script Grafica -->
-        <!-- <script src="js/graphs.js" charset="utf-8"></script> -->
-
         <!-- START PLUGINS -->
         <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
         <!-- END PLUGINS -->
 
-        <!-- START THIS PAGE PLUGINS-->
-        <!-- <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        <script type="text/javascript" src="js/plugins/scrolltotop/scrolltopcontrol.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
-        <script type="text/javascript" src="js/plugins/morris/morris.min.js"></script> -->
-        <!-- <script type="text/javascript" src="js/plugins/rickshaw/d3.v3.js"></script>
-        <script type="text/javascript" src="js/plugins/rickshaw/rickshaw.min.js"></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
-        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
-        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
-        <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script> -->
-
-        <!-- <script type="text/javascript" src="js/plugins/moment.min.js"></script>
-        <script type="text/javascript" src="js/plugins/daterangepicker/daterangepicker.js"></script> -->
-        <!-- END THIS PAGE PLUGINS-->
-
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="js/plugins.js"></script>
         <script type="text/javascript" src="js/actions.js"></script>
-
-        <!-- <script type="text/javascript" src="js/demo_dashboard.js"></script> -->
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
     </body>

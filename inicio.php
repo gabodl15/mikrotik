@@ -196,7 +196,6 @@ $API->debug = false;
                                                            }
                                                            $datos_interface = '<td>'.$temperatura.'</td>';
                                                            echo $datos_interface;
-                                                           //var_dump($ARRAY);
                                                        }
                                                        }else{ // si no hay ningun binding
                                                            echo "No hay ningun IP-Bindings. //<br/>";
@@ -218,7 +217,6 @@ $API->debug = false;
                                                            $datos_routerboard .= '<td>RB '.$ARRAY[$x]['model'].'</td>';
                                                            $datos_routerboard .= '</tr>';
                                                            echo $datos_routerboard;
-                                                           //var_dump($ARRAY);
                                                        }
                                                        }else{ // si no hay ningun binding
                                                            echo "No hay ningun IP-Bindings. //<br/>";
@@ -246,7 +244,6 @@ $API->debug = false;
                                                            $datos_resource .= '<td>'.$bad_blocks.'</td>';
                                                            $datos_resource .= '</tr>';
                                                            echo $datos_resource;
-                                                           //var_dump($ARRAY);
                                                        }
                                                        }else{ // si no hay ningun binding
                                                            echo "No hay ningun IP-Bindings. //<br/>";
@@ -255,7 +252,6 @@ $API->debug = false;
                                            </tbody>
                                        </table>
                                    </div>
-
                                </div>
                            </div>
                            <!-- END PROJECTS BLOCK -->
@@ -324,9 +320,6 @@ $API->debug = false;
                                 </ul>
                             </div>
 <!-- ////////////////////////////////////// /COMPARACION /////////////////////////////////////////// -->
-
-
-
 
                             <!-- END WIDGET CLOCK -->
                         </div>

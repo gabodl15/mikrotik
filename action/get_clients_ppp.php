@@ -26,7 +26,6 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
 			$name=sanear_string($ARRAY[$x]['name']);
 			$plan = $ARRAY[$x]['profile'];
 			$comment = sanear_string(utf8_decode($ARRAY[$x]['comment']));
-			//$limit_at = $ARRAY[$x]['limit-at'];
 			$arrayResponse[] = array(
 				"mensaje" => "Exitoso",
 				"nombre" => $name,
@@ -43,5 +42,4 @@ if ($API->connect(IP_MIKROTIK, USER, PASS)) {
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($arrayResponse);
 
-//var_dump($arrayResponse);
 ?>
