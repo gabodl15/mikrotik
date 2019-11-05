@@ -3,5 +3,6 @@
 /layouts/menu.php
 internautas.sql
 templates/
+sheet.php
 .htaccess
 .idea
