@@ -180,7 +180,7 @@ $API->debug = false;
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Plan</label>
                                 <div class="col-md-8">
-                                    <select name="edit_Segmento" id="edit_Segmento" class="control-select select">
+                                    <select name="edit_Segment" id="edit_Segment" class="control-select select">
 
                                         <?php
                                             $API->write("/ppp/profile/getall", true);
@@ -321,7 +321,7 @@ $API->debug = false;
           	  });
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
-
+                  //$("ul .dropdown-menu inner selectpicker").removeAtt("selected")
                   $("#new-comment").val($("#comment_actual").val());
 
                   if(check_editar){
@@ -330,7 +330,17 @@ $API->debug = false;
           			       $("#Edicion_ppp").fadeOut();
           		    }
 
+<<<<<<< HEAD
 
+=======
+                  console.log($("#edit_Segmento").val());
+                  console.log($("#plan_actual").val());
+
+                  //$("#edit_Segmento select").val($("#plan_actual").val());
+                  console.log($("ul .dropdown-menu .inner .selectpicker li"));
+
+                  //$("select #edit_Segmento option[value="+$("#plan_actual").val()+"]").attr('selected', 'selected');
+>>>>>>> 160bdef7a1287466ac73e0f8f5a917f4059183f9
           	  });
             	$('#Notificacion').click(function(){
             		$(this).fadeOut();
