@@ -8,8 +8,8 @@ require('../functions/funciones.php');
 include("../action/security.php");
 include("../layouts/menu.php");
 require('../apimikrotik.php');
-$API = new routeros_api();
 $API->debug = false;
+$API = new routeros_api();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,7 +36,7 @@ $API->debug = false;
              <?= $menu; ?>
 
             <!-- PAGE CONTENT -->
-            <div class="page-content">
+            <div id="sidebar" class="page-content">
 
                 <!-- START X-NAVIGATION VERTICAL -->
                 <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
@@ -163,15 +163,21 @@ $API->debug = false;
                   <form role="form" id="Editar_ppp" action="../action/Procesos_EDIT_PPPoE.php" method="POST">
                     <h3 style="text-align: center; color:#13B21B">Formulario de edicion</h3>
                     <br>
+
                     <div class="col-md-5">
                       <div class="form-horizontal">
                         <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Comentario</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
+                            <div id="formulario_edicion_ppp">
+
                             </div>
-                        </div>
+                            <!--<label class="col-md-4 control-label">Comentario</label>-->
+                            <!--<div class="col-md-8 col-md-offset-4">
+                              <div id="formulario_edicion_ppp">
+
+                              </div>-->
+                                <!--<textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
+                            </div>-->
+
                       </div>
                     </div>
 
@@ -321,22 +327,33 @@ $API->debug = false;
           	  });
           	  $("#Editar_Valores").click(function(){
           		    var check_editar = $("#Editar_Valores").prop('checked', true);
-                  //$("ul .dropdown-menu inner selectpicker").removeAtt("selected")
-                  $("#new-comment").val($("#comment_actual").val());
+
+                  var fetch_comment = $("#comment_actual").val();
 
                   if(check_editar){
           			       $("#Edicion_ppp").fadeIn();
           		    }else{
           			       $("#Edicion_ppp").fadeOut();
           		    }
+                  //Procesar informacion
+                  var regex = /\[([^\]]+)]/g,
+                      match,
+                      resultado = [];
+                      while ((match = regex.exec(fetch_comment)) !== null) {
+                          resultado.push(match[1]);
+                      }
 
-                  console.log($("#edit_Segmento").val());
-                  console.log($("#plan_actual").val());
+                  resultado.forEach(function (elemento, indice, array){
+                      var bold = elemento.substring(0,elemento.indexOf(":")+1);
+                      var rest = elemento.substring(elemento.indexOf(":")+1, elemento.length) ;
+                      $("#formulario_edicion_ppp").append("<div class='form-group'><label class='col-md-4 control-label'>" + bold + "</label> <div class='col-md-6'><input type='text' class='form-control' value='"+rest+"'></div></div>");
+                  });
+                  //Redimencionando el body para ajustarse a la informacion procesada
 
-                  //$("#edit_Segmento select").val($("#plan_actual").val());
-                  console.log($("ul .dropdown-menu .inner .selectpicker li"));
-
-                  //$("select #edit_Segmento option[value="+$("#plan_actual").val()+"]").attr('selected', 'selected');
+                  $(window).resize(function() {
+                      var bodyheight = $(this).height();
+                      $("#sidebar").height(bodyheight);
+                  }).resize();
           	  });
             	$('#Notificacion').click(function(){
             		$(this).fadeOut();
