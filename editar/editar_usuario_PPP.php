@@ -167,17 +167,9 @@ $API = new routeros_api();
                     <div class="col-md-5">
                       <div class="form-horizontal">
                         <input type="hidden" name="ID_Usuario_MKT" id="ID_Usuario_MKT">
-                            <div id="formulario_edicion_ppp">
-
-                            </div>
-                            <!--<label class="col-md-4 control-label">Comentario</label>-->
-                            <!--<div class="col-md-8 col-md-offset-4">
-                              <div id="formulario_edicion_ppp">
-
-                              </div>-->
-                                <!--<textarea class="form-control" id="new-comment" rows="7" style="resize: none"></textarea>
-                            </div>-->
-
+                        <div id="formulario_edicion_ppp">
+                            <!-- Aqui se inserta la informacion por jQuery -->
+                        </div>
                       </div>
                     </div>
 
@@ -348,8 +340,8 @@ $API = new routeros_api();
                       var rest = elemento.substring(elemento.indexOf(":")+1, elemento.length) ;
                       $("#formulario_edicion_ppp").append("<div class='form-group'><label class='col-md-4 control-label'>" + bold + "</label> <div class='col-md-6'><input type='text' class='form-control' value='"+rest+"'></div></div>");
                   });
-                  //Redimencionando el body para ajustarse a la informacion procesada
 
+                  //Redimencionando el body para ajustarse a la informacion procesada
                   $(window).resize(function() {
                       var bodyheight = $(this).height();
                       $("#sidebar").height(bodyheight);
