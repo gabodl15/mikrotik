@@ -1,7 +1,4 @@
 .htaccess
-/includes/variables.php
-/layouts/menu.php
-internautas.sql
 templates/
 sheet.php
 .htaccess
