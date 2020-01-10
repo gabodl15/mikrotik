@@ -119,7 +119,7 @@ $API->debug = false;
 
                                             if(count($ARRAY)>0){   // si hay mas de 1 secret.
                                                 for($x=0;$x<count($ARRAY);$x++){
-                                                    if($ARRAY[$x]['disabled'] == "false"){
+                                                    if($ARRAY[$x]['disabled'] == "false" && $ARRAY[$x]['profile'] != 'CORTADOS'){
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
                                                         $datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#info_user_modal">'.$name.'</a></td>';

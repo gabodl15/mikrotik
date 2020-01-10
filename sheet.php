@@ -68,41 +68,61 @@ $API->debug = false;
                 <div class="page-content-wrap">
                     <div class="row">
                         <div class="col-md-2">
-                          <?php
-                          $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
-                          $query = mysqli_query($conexiondb, "SELECT name_client FROM clients where name_client NOT LIKE 'prueba%';");
+                          <?php 
+				
+			 $array_mikrotik = [];
+			 $array_database = [];
+			 // $conexiondb = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_DB);
+                         // $query = mysqli_query($conexiondb, "SELECT name_client FROM clients where name_client NOT LIKE 'prueba%';");
                           $new_array = [];
                           if ($API->connect(IP_MIKROTIK, USER, PASS)) {
                              $API->write("/ppp/secret/getall",true);
                              $READ = $API->read(false);
-                             $ARRAY = $API->parse_response($READ);
+                             $variable = $API->parse_response($READ);
                           }
                           $name_array = [];
-                          for ($i=0; $i < count($ARRAY); $i++) {
-                            array_push($name_array, $ARRAY[$i]['name']);
-                          }
+                          for ($i=0; $i < count($variable); $i++) {
+				 
 
+				  if($variable[$i]['disabled'] == "false" && $variable[$i]['profile'] !== "CORTADOS" && stripos($variable[$i]['name'], 'prueba') === false  ){ //FILTRA SOLO LOS USUARIOS ACTIVOS
+					if(stripos($variable[$i]['comment'], 'CONVENIO') === false){	
+						$array_mikrotik[] = $variable[$i]['name'];
+					}
+				  }//FIN DEL IF
+				  
+                          }
+/*
                           if ($query->num_rows > 0) {
                               while ($datos = $query->fetch_assoc()) {
                                   //echo $datos['name_client']."<br>";
                                   array_push($new_array, $datos['name_client']);
                                 }
-                          }
-                          mysqli_close($conexiondb);
-                          ?>
+			  }*/                         
+			    ?>
                         </div>
                         <div class="col-md-4">
                           <?php
-
                           // var_dump($name_array);
-                          //var_dump($new_array);
-                          for ($i=0; $i < count($new_array); $i++) {
-                              if (in_array($new_array[$i], $name_array)) {
-                                  continue;
-                              }else{
-                                  echo $new_array[$i]."<br>";
-                              }
-                          }
+			  //var_dump($new_array);
+			  
+			  $conexiondb = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_DB);
+			  $query = mysqli_query($conexiondb, "SELECT name_client FROM clients WHERE comment_client NOT LIKE '%CONVENIO%' AND profile != 'default' AND profile != 'CORTADOS' AND name_client NOT LIKE 'prueba%';");
+
+			  if($query->num_rows > 0){
+				  while($datos = $query->fetch_assoc()){
+						
+					  $array_database[] = $datos['name_client'];
+					
+				  }
+			  }
+
+			  mysqli_close($conexiondb);
+
+
+			  $resultado = array_diff($array_mikrotik, $array_database);
+
+			  print_r($resultado);
+
                              ?>
                         </div>
                     </div>
