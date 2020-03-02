@@ -105,7 +105,8 @@ $API->debug = false;
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                           <tr>
-                                            <th>Usuario</th>
+					    <th>Usuario</th>
+					    <th>Pago</th>
                                             <th>Plan</th>
                                             <th>Fecha de pago</th>
                                             <!-- <th>Tiempo Conexi&oacute;n</th> -->
@@ -122,7 +123,16 @@ $API->debug = false;
                                                     if($ARRAY[$x]['disabled'] == "false" && $ARRAY[$x]['profile'] != 'CORTADOS'){
                                                         $name=sanear_string($ARRAY[$x]['name']);
                                                         $datos_pppoe = '<tr>';
-                                                        $datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#info_user_modal">'.$name.'</a></td>';
+							$datos_pppoe.= '<td id="'.$ARRAY[$x]['.id'].'"><a href="#" data-toggle="modal" onClick="searchUser(jQuery(this));" data-target="#info_user_modal">'.$name.'</a></td>';
+							try {
+						           $patron = "/(MONTO:)+(\s)?+[0-9]{1,3}+[\$]?+(\s)?+/"; //Esta es la exprecion regular que necesito.
+							   $matches = array();
+							   preg_match($patron, $ARRAY[$x]['comment'], $matches);
+							   $datos_pppoe.= '<td>'.$matches[0].'</td>';
+							   //echo $matches[0];
+							} catch (\Exception $e) {
+								$datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
+							}
                                                         $datos_pppoe.= '<td>'.$ARRAY[$x]['profile'].'</td>';
                                                         $datos_pppoe.= '<td>'.substr($ARRAY[$x]['comment'],0,2).'</td>';
                                                         $datos_pppoe.= '</tr>';
